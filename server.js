@@ -1,8 +1,11 @@
+var path = require('path');
 var express = require('express');
+
 var app = express();
+global.appRoot = path.resolve(__dirname);;
 
-app.get('/', function(req, res){
-	res.send("Hello World\n");
-});
+var config = require(appRoot+"/config/server_config");
 
-app.listen(3000);
+require(appRoot+"/routes")(app);
+
+app.listen(config.port);
