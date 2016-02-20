@@ -11,6 +11,7 @@
   "license": "MIT",
   "homepage": "https://github.com/jacobrs/mchacks2016#readme",
   "dependencies": {
+    "body-parser": "^1.15.0",
     "express": "^4.13.4",
     "express-handlebars": "^3.0.0",
     "firebase": "^2.4.1",
