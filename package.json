@@ -1,0 +1,21 @@
+{
+  "name": "mchacks2016",
+  "version": "1.0.0",
+  "description": "Hack for McGill Hackathon 2016",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jacobrs/mchacks2016.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "homepage": "https://github.com/jacobrs/mchacks2016#readme",
+  "dependencies": {
+    "express": "^4.13.4",
+    "express-handlebars": "^3.0.0",
+    "firebase": "^2.4.1",
+    "path": "^0.12.7",
+    "pm2": "^1.0.1",
+    "underscore": "^1.8.3"
+  }
+}
