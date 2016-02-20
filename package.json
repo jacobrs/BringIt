@@ -12,8 +12,9 @@
   "homepage": "https://github.com/jacobrs/mchacks2016#readme",
   "dependencies": {
     "express": "^4.13.4",
+    "express-handlebars": "^3.0.0",
     "firebase": "^2.4.1",
-    "handlebars": "^4.0.5",
+    "path": "^0.12.7",
     "pm2": "^1.0.1",
     "underscore": "^1.8.3"
   }
