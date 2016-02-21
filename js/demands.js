@@ -56,8 +56,8 @@ var loggingOut = false;
 function logOut(){
   if(!loggingOut){
     loggingOut = true;
-
-    $('#logoutbtn').html("<i class='fa fa-spin fa-spinner' style='font-size: 0.75em;'></i>");
+    var width = $('#logoutbtn').outerWidth();
+    $('#logoutbtn').html("<i class='fa fa-spin fa-spinner' style='font-size: 0.75em;'></i>").css('width', width);
 
     $.ajax({
       type: "POST",

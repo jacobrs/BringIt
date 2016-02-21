@@ -17,6 +17,14 @@ exports.postDemand = function(req, res, next){
 	var body = req.body;
 	var resp = {};
 
+	if(funcs.isUndef(body.deliverer)){
+		body.deliverer = null;
+	}
+
+	if(funcs.isUndef(body.shop)){
+		body.shop = null;
+	}
+
 	if(!funcs.isUndef(body.fname) && !funcs.isUndef(body.item) && !funcs.isUndef(body.price) &&
 	   !funcs.isUndef(body.destination) && !funcs.isUndef(body.shop) && !funcs.isUndef(body.tip)){
 					console.log(body);

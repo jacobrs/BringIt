@@ -69,67 +69,65 @@ var loggingIn = false;
 function logIn(){
 	if(!loggingIn){
 		loggingIn = true;
+		var width = $('#loginbtn').outerWidth();
+		$('#loginbtn').html("<i class='fa fa-spin fa-spinner' style='font-size: 0.75em;'></i>").css('width', width);
 
-		$('#login-result').fadeOut(500, function(){
-			$('#loginbtn').html("<i class='fa fa-spin fa-spinner' style='font-size: 0.75em;'></i>");
+		var error = false;
 
-			var error = false;
+		$('#login').children().each(function(div){
+			if($(this).hasClass("has-error")){
+				$(this).removeClass("has-error");
+			}
+		});
 
-			$('#login').children().each(function(div){
-				if($(this).hasClass("has-error")){
-					$(this).removeClass("has-error");
-				}
-			});
+		$.ajax({
+			type: "POST",
+			url: "./user/login",
+			dataType: "json",
+			data: {
+				username: $('#login-username').val(),
+				password: $('#login-password').val()
+			},
+			success: function(data){
+				if(data.error !== undefined){
+					var errorOutput = "";
 
-			$.ajax({
-				type: "POST",
-				url: "./user/login",
-				dataType: "json",
-				data: {
-					username: $('#login-username').val(),
-					password: $('#login-password').val()
-				},
-				success: function(data){
-					if(data.error !== undefined){
-						var errorOutput = "";
-
-						if(data.errorType == "both"){
-							$("#login-username").parent().addClass("has-error");
-							$("#login-password").parent().addClass("has-error");
-						}else if(data.errorType == "username"){
-							$("#login-username").parent().addClass("has-error");
-						}else{
-							$("#login-password").parent().addClass("has-error");
-						}
-
-						$('#login-result').removeClass("alert-success");
-						$('#login-result').addClass("alert-danger");
-
-						$('#login-result').html(data.error);
-
-						$('#loginbtn').html("Sign In");
-
-						$('#login-result').fadeIn(500, function(){
-							loggingIn = false;
-						}).css('display', 'inline');
+					if(data.errorType == "both"){
+						$("#login-username").parent().addClass("has-error");
+						$("#login-password").parent().addClass("has-error");
+					}else if(data.errorType == "username"){
+						$("#login-username").parent().addClass("has-error");
 					}else{
-						// Login
-						$('#login-result').removeClass("alert-danger");
-						$('#login-result').addClass("alert-success");
-
-						$('#login-result').html("Redirecting...");
-
-						loggingIn = false;
-
-						window.location = "app";
+						$("#login-password").parent().addClass("has-error");
 					}
-				},
-				error: function(e){
-					//console.log(e);
-				},
-				complete: function(){
+
+					$('#login-result').removeClass("alert-success");
+					$('#login-result').addClass("alert-danger");
+
+					$('#login-result').html(data.error);
+
+					$('#loginbtn').html("Sign In");
+
+					$('#login-result').show().css('display', 'inline');
+				}else{
+					// Login
+					$('#login-result').hide();
+					$('#login-result').removeClass("alert-danger");
+					$('#login-result').addClass("alert-success");
+
+					$('#login-result').html("Redirecting...");
+
+					loggingIn = false;
+
+					window.location = "app";
 				}
-			});
+			},
+			error: function(e){
+				//console.log(e);
+			},
+			complete: function(){
+				loggingIn = false;
+			}
 		});
 	}
 }
