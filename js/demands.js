@@ -1,3 +1,11 @@
+$(document).on('ready', function(){
+  $('#search-bar').on('keypress', function(e){
+    var key = e.which ? e.which : e.keyCode;
+
+
+  });
+});
+
 function makeDemand(){
   $.ajax({
     url: "./demand",
