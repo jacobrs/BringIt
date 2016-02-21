@@ -1,5 +1,5 @@
+var indexController = require(appRoot+"/app/controller/index.controller.js");
+
 module.exports = function(app){
-	app.get("/", function(req, res){
-		res.send("Hello World!");
-	});
+	app.get("/", indexController.showLogin);
 };
