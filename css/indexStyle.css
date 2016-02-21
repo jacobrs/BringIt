@@ -116,3 +116,10 @@ html,body{
   width: 75%;
   margin: 0px auto;
 }
+
+.req{
+	float:right;
+	margin-left: 1em;
+	margin-right: .4em;
+	display: none;
+}

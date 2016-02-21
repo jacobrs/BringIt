@@ -19,6 +19,7 @@ exports.postDemand = function(req, res, next){
 
 	if(!funcs.isUndef(body.fname) && !funcs.isUndef(body.item) && !funcs.isUndef(body.price) &&
 	   !funcs.isUndef(body.destination) && !funcs.isUndef(body.shop) && !funcs.isUndef(body.tip)){
+					console.log(body);
 		funcs.createDemand(body, res);
 	}else{
 		resp.error = "Invalid use of api";
@@ -34,7 +35,7 @@ exports.putDemand = function(req, res, next){
 
         if(!funcs.isUndef(body.id) && !funcs.isUndef(body.fname) && !funcs.isUndef(body.item) && !funcs.isUndef(body.price) &&
            !funcs.isUndef(body.destination) && !funcs.isUndef(body.deliverer) && !funcs.isUndef(body.tip)){
-                funcs.updateDemand(body, res);
+								funcs.updateDemand(body, res);
         }else{
                 resp.error = "Invalid use of api";
                 resp.code  = 400;
