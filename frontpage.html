@@ -7,9 +7,6 @@
   <meta name="generator" content="Bootply" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <link href="css/bootstrap.min.css" rel="stylesheet">
-  <!--[if lt IE 9]>
-  <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
   <link href="css/styles.css" rel="stylesheet">
 </head>
 
@@ -75,24 +72,13 @@
         <p>item 4</p>
         <hr>
       </div>
-      <div class="col-xs-4" id="map-canvas">
-        <!--map-canvas will be postioned here-->
-      </div>
+      <div class="col-xs-4" id="map-canvas"></div>
     </div>
   </div>
   <!-- end template -->
 
   <!-- script references -->
-  <script>
-  function initMap() {
-    var mapDiv = document.getElementById('map-canvas');
-    var map = new google.maps.Map(mapDiv, {
-      center: {lat: 44.540, lng: -78.546},
-      zoom: 8
-    });
-  }
-  </script>
-  <script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer>
-  </script>
+  <script src="js/scripts.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
 </body>
 </html>
