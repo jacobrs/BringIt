@@ -116,3 +116,10 @@ html,body{
   width: 75%;
   margin: 0px auto;
 }
+
+#login-result{
+  display: none;
+  height: 40px;
+  padding: 0.5em 1em;
+  margin: 0em;
+}

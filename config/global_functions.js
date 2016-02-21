@@ -6,7 +6,7 @@ exports.isUndef = function(item){
 	return item === undefined || item === null;
 };
 
-exports.logIn = function(username, password, req, res){
+exports.login = function(username, password, req, res){
 	var resp = {};
 
 	// Validate input
@@ -28,18 +28,21 @@ exports.logIn = function(username, password, req, res){
 					}
 				}
 
+				resp.errorType = "both";
 				resp.error = "Username or password was incorrect";
 				resp.code  = 400;
 				res.json(resp);
 				res.end();
 			});
 		}else{
+			resp.errorType = "password";
 			resp.error = "Password cannot be empty";
 			resp.code  = 400;
 			res.json(resp);
 			res.end();
 		}
 	}else{
+		resp.errorType = "username";
 		resp.error = "Username cannot be empty";
 		resp.code  = 400;
 		res.json(resp);
@@ -89,10 +92,12 @@ exports.createUser = function(data, req, res){
 
 	User.findByUsername(data.username, function(result){
 		if(result !== null){
-			resp.errors.push({
-            	errorType: "username",
-            	text:      "Username is already taken"
-        	});
+			if(data.username != ""){
+				resp.errors.push({
+            		errorType: "username",
+            		text:      "Username is already taken"
+        		});
+			}
 		}
 
 		if(!global.passwordRegex.test(data.password)){
@@ -200,7 +205,7 @@ exports.createDemand = function(data, res){
 
 	// Validate input
 	if(!global.usernameRegex.test(data.deliverer)){
-		data.deliverer = "";
+		data.deliverer = " ";
 	}
 
 		if(!global.individNameRegex.test(data.fname)){
@@ -239,7 +244,7 @@ exports.createDemand = function(data, res){
         	}
 
         	if(!global.shopRegex.test(data.shop)){
-                	data.shop = "";
+                	data.shop = " ";
         	}
 
 		if(!global.tipRegex.test(data.tip)){
