@@ -173,3 +173,20 @@ html,body{
 	transition: background-color 0.5s ease;
 	background-color:rgba(46, 26, 113, 0.08);
 }
+
+.resbox.active{
+	transition: background-color 0.5s ease;
+	background-color:rgba(46, 26, 113, 0.08);
+}
+
+#deliverbtn{
+	display:none;
+	background-color:rgb(255, 88, 59);
+	border-color:rgb(255, 88, 59);
+}
+
+#finishedbtn{
+	display:none;
+	background-color:rgb(52, 142, 77);
+	border-color:rgb(52, 142, 77);
+}

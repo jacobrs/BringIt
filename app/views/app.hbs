@@ -9,6 +9,7 @@
     <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="/indexStyle.css" rel="stylesheet">
+    <script>var myuname = "{{username}}";</script>
   </head>
 
   <body>
@@ -36,6 +37,10 @@
           <p class="navbar-text navbar-right">Signed in as <strong>{{username}}</strong></p>
           <form name="demandbtns" id="demandbtns" class="navbar-form navbar-right">
             <div class="form-group" class="navbar-form navbar-right">
+              <button type="button" id="deliverbtn" class="btn btn-default"
+                  data-toggle="modal" data-target="#deliverModal" >BringIt!</button>
+              <button type="button" id="finishedbtn" class="btn btn-default"
+                  data-toggle="modal" data-target="#finishedModal" >Delivered!</button>
               <button type="button" id="demandbtn" class="btn btn-default"
                   data-toggle="modal" data-target="#demandModal" >Ask for Something</button>
             </div>

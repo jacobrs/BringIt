@@ -24,7 +24,7 @@ function searchItemsLike(theString, searchItems){
 
   clearList();
   newList.forEach(function (val){
-    addSquare(val.val());
+    addSquare(val.val(), val.key());
   });
 }
 
@@ -87,13 +87,23 @@ function geolocate() {
 
 function refreshList(list){
   if(list != null){
+    clrCurr = true;
     items = list;
     deleteMarkers();
     clearList();
     list.forEach(function (val){
-      addSquare(val.val());
+      if(curr !== undefined){
+        if(curr == val.key()){
+          clrCurr = false;
+        }
+      }
+      addSquare(val.val(), val.key());
     });
     setMapOnAll(map);
+    if(clrCurr == true){
+      curr = undefined;
+    }
+    refreshActions();
   }
 
   if($('#search-bar').val() != ""){
@@ -101,15 +111,27 @@ function refreshList(list){
   }
 }
 
+function refreshActions(){
+  $("#finishedbtn").hide();
+  $("#deliverbtn").hide();
+  if(curr !== undefined){
+    if(items.child(curr).val().owner == myuname){
+      $("#finishedbtn").show();
+    }else{
+    $("#deliverbtn").show();
+    }
+  }
+}
+
 function clearList(){
   $("#result-list").html("");
 }
-
-function addSquare(item){
+var curr;
+function addSquare(item, key){
   addMarker({lat: parseFloat(item.destination.lat), lng: parseFloat(item.destination.long)}, item.item);
   var curr = $("#result-list").html();
   curr += "<div class='resbox' onclick='map.setCenter({lat: " + parseFloat(item.destination.lat) + ", "+
-    "lng: " + parseFloat(item.destination.long)+ "});'>";
+    "lng: " + parseFloat(item.destination.long)+ "}); curr = \""+key+"\"; refreshActions();'>";
   curr += "<h4>" + item.fname + " needs " + item.item + "</h4>";
   curr += "<h5 class='price'>Predicted price of item $" + item.price;
 
