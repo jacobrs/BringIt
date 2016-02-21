@@ -27,6 +27,7 @@ User.findByUsername = function (username, callback) {
 User.findByEmail = function (email, callback) {
   global.rootRef.child("users").on("value", function(snapshot) {
     var ret = snapshot;
+
     if(ret === null){
       callback(null);
     }else{
@@ -41,6 +42,7 @@ User.findByEmail = function (email, callback) {
           return;
         }
       });
+
       if(!found){
         callback(null);
       }

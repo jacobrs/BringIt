@@ -93,11 +93,12 @@ exports.createUser = function(data, res){
 				resp.errors = undefined;				
 
 				var salt = bcrypt.genSaltSync(10);
-		                data.password = bcrypt.hashSync(data.password, salt);
+		        data.password = bcrypt.hashSync(data.password, salt);
 
-		                var tempUser = new User(data);
-				tempUser.push();
-		                resp.success = "Successful";
+		        var tUser = new User(data);
+
+				tUser.push();
+		        resp.success = "Successful";
 				res.json(resp);
 				res.end();
 			}else{
@@ -217,8 +218,8 @@ exports.createDemand = function(data, res){
 			data.asker  = data.fname;
 			data.destination.long = data.destination.lng;
 
-			var tempDemand = new Demand(data);
-			tempDemand.push();
+			var tDemand = new Demand(data);
+			tDemand.push();
                 	resp.success = "Successful";
                 	res.json(resp);
                 	res.end();
