@@ -51,9 +51,9 @@ function makeDemand(){
         $("[id^="+item.errorType+"-r]").show();
       });
     }
-    console.log(data);
+    //console.log(data);
   }).fail(function (data){
-    console.log(data);
+    //console.log(data);
   });
 }
 
@@ -118,15 +118,31 @@ function refreshActions(){
     if(items.child(curr).val().owner == myuname){
       $("#finishedbtn").show();
     }else{
-    $("#deliverbtn").show();
+      $("#deliverbtn").show();
     }
   }
+}
+
+function finishedDelivery(){
+  $.ajax({
+    url: "./demand/"+curr,
+    method: "DELETE",
+    dataType: "json",
+    success: function(data){
+    },
+    error: function(e){
+    },
+    complete: function(){
+    }
+  });
 }
 
 function clearList(){
   $("#result-list").html("");
 }
+
 var curr;
+
 function addSquare(item, key){
   addMarker({lat: parseFloat(item.destination.lat), lng: parseFloat(item.destination.long)}, item.item);
   var curr = $("#result-list").html();
@@ -177,7 +193,7 @@ function logOut(){
     $('#logoutbtn').html("<i class='fa fa-spin fa-spinner' style='font-size: 0.75em;'></i>").css('width', width);
 
     $.ajax({
-      type: "POST",
+      method: "POST",
       url: "./user/logout",
       dataType: "json",
       success: function(data){

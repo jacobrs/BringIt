@@ -42,7 +42,7 @@ function signUp(){
 			});
 
 			$.ajax({
-				type: "POST",
+				method: "POST",
 				url: "./user",
 				dataType: "json",
 				data: {
@@ -50,7 +50,7 @@ function signUp(){
 					email: $('#email').val(),
 					fname: $('#fname').val(),
 					lname: $('#lname').val(),
-					password: $('#password').val() 
+					password: $('#password').val()
 				},
 				success: function(data){
 					if(data.errors !== undefined){
@@ -107,7 +107,7 @@ function logIn(){
 		});
 
 		$.ajax({
-			type: "POST",
+			method: "POST",
 			url: "./user/login",
 			dataType: "json",
 			data: {
