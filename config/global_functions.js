@@ -275,7 +275,7 @@ exports.updateUser = function(data, req, res){
 	});
 };
 
-exports.deleteUser = function(username, res){
+exports.deleteUser = function(username, req, res){
 	// Validate input
 };
 
@@ -495,6 +495,23 @@ exports.updateDemand = function(data, req, res){
 	}
 };
 
-exports.deleteDemand = function(id, res){
+exports.deleteDemand = function(id, req, res){
 	// Validate input
+	Demand.findById(id, function(result){
+		if(result !== null and req.session.username == result.owner){
+			var tDemand = new Demand(result);
+			tDemand.deleteWithID(id);
+			resp.success = "Successful";
+			res.json(resp);
+			res.end();
+		}else{
+			resp.errors.push({
+				errorType: "conflict",
+				text:      "You do not own the demand or it does not exist"
+			});
+			resp.code = 400;
+			res.json(resp);
+			res.end();
+		}
+	});
 }

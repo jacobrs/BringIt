@@ -63,7 +63,7 @@ exports.deleteDemand = function(req, res, next){
 	var resp = {};
 
 	if(!funcs.isUndef(req.params.id)){
-		funcs.deleteDemand(req.params.id, res);
+		funcs.deleteDemand(req.params.id, req, res);
 	}else{
 		resp.error = "Invalid use of api";
 		resp.code  = 400;

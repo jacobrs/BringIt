@@ -35,6 +35,10 @@ var Demand = function (data) {
       shop: this.data.shop,
       tip: this.data.tip
     });
+  };
+  this.deleteWithID = function(id){
+    var postsRef = global.rootRef.child("demands/"+id);
+    postsRef.remove();
   }
 }
 

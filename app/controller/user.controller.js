@@ -65,7 +65,7 @@ exports.deleteUser = function(req, res, next){
 	var resp = {};
 
 	if(!funcs.isUndef(req.params.username)){
-		funcs.deleteUser(req.params.username, res);
+		funcs.deleteUser(req.params.username, req, res);
 	}else{
 		resp.error = "Invalid use of api";
 		resp.code  = 400;
