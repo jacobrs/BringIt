@@ -31,15 +31,19 @@ User.findByEmail = function (email, callback) {
       callback(null);
     }else{
 
+      var found = false;
       ret.forEach(function(value) {
         if(value.val().email == email){
           var u = value.val();
           u.username = value.key();
           callback(u);
+          found = true;
           return;
         }
       });
-      callback(null);
+      if(!found){
+        callback(null);
+      }
     }
   });
 }
