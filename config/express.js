@@ -12,6 +12,18 @@ module.exports = function(){
 	var app    = express();
 	var router = express.Router();
 
+	var sess   = {
+		name: "ohIkgFh3KKxSS57",
+		secret: "Ben is awesome",
+		cookie: { 
+			secure: true
+		},
+		resave: true,
+    	saveUninitialized: false
+	};
+
+	app.use(session(sess));
+
 	// Setting app defaults
 	app.engine('.hbs',  exhbs({
         	extname: '.hbs',

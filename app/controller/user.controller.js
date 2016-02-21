@@ -19,7 +19,7 @@ exports.postUser = function(req, res, next){
 
 	if(!funcs.isUndef(body.username) && !funcs.isUndef(body.fname) && !funcs.isUndef(body.email) && 
 	   !funcs.isUndef(body.password) && !funcs.isUndef(body.lname)){
-		funcs.createUser(body, res);
+		funcs.createUser(body, req, res);
 	}else{
 		resp.error = "Invalid use of api";
 		resp.code  = 400;

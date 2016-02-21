@@ -6,6 +6,47 @@ exports.isUndef = function(item){
 	return item === undefined || item === null;
 };
 
+exports.logIn = function(username, password, req, res){
+	var resp = {};
+
+	// Validate input
+	if(username != ""){
+		if(password != ""){
+			User.findByUsername(username, function(result){
+				if(result !== null){
+					if(bcrypt.compareSync(password, result.password)){
+						req.session.username = data.username;
+						req.session.fname    = data.fname;
+						req.session.lname    = data.lname;
+						req.session.email    = data.email;
+
+						req.session.regenerate(function(err){});
+
+						resp.success = "Logged In";
+						res.json(resp);
+						res.end();
+					}
+				}
+
+				resp.error = "Username or password was incorrect";
+				resp.code  = 400;
+				res.json(resp);
+				res.end();
+			});
+		}else{
+			resp.error = "Password cannot be empty";
+			resp.code  = 400;
+			res.json(resp);
+			res.end();
+		}
+	}else{
+		resp.error = "Username cannot be empty";
+		resp.code  = 400;
+		res.json(resp);
+		res.end();
+	}
+}
+
 exports.getUser = function(username, res){
 	var resp = {};
 
@@ -35,7 +76,7 @@ exports.getUser = function(username, res){
 
 // Helper function that deals with a response and determines
 // if the user should be created (and creates it) or not
-exports.createUser = function(data, res){
+exports.createUser = function(data, req, res){
 	var resp = {};
 	resp.errors = [];
 
@@ -99,6 +140,14 @@ exports.createUser = function(data, res){
 		        var tUser = new User(data);
 
 				tUser.place();
+
+				req.session.username = data.username;
+				req.session.fname    = data.fname;
+				req.session.lname    = data.lname;
+				req.session.email    = data.email;
+
+				req.session.regenerate(function(err){});
+
 		        resp.success = "Successful";
 				res.json(resp);
 				res.end();
@@ -151,10 +200,7 @@ exports.createDemand = function(data, res){
 
 	// Validate input
 	if(!global.usernameRegex.test(data.deliverer)){
-		resp.errors.push({
-			errorType: "deliverer",
-			text:	   "Invalid characters in deliverer's username"
-		});
+		data.deliverer = "";
 	}
 
 		if(!global.individNameRegex.test(data.fname)){
@@ -193,10 +239,7 @@ exports.createDemand = function(data, res){
         	}
 
         	if(!global.shopRegex.test(data.shop)){
-                	resp.errors.push({
-                        	errorType: "shop",
-                        	text:      "Invalid characters in the shop name"
-                	});
+                	data.shop = "";
         	}
 
 		if(!global.tipRegex.test(data.tip)){
