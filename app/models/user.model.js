@@ -24,4 +24,24 @@ User.findByUsername = function (username, callback) {
   });
 }
 
+User.findByEmail = function (email, callback) {
+  global.rootRef.child("users").on("value", function(snapshot) {
+    var ret = snapshot;
+    if(ret === null){
+      callback(null);
+    }else{
+
+      ret.forEach(function(value) {
+        if(value.val().email == email){
+          var u = value.val();
+          u.username = value.key();
+          callback(u);
+        }
+        return;
+      });
+      callback(null);
+    }
+  });
+}
+
 module.exports = User;

@@ -2,6 +2,8 @@ var express    = require('express');
 var exhbs      = require('express-handlebars');
 var bodyParser = require('body-parser');
 
+var User = require(appRoot+"/app/models/user.model.js");
+
 var serverLogging = function(req, res, next){
 	console.log(req.method, req.url);
 	next();
@@ -29,6 +31,10 @@ module.exports = function(){
 	app.use(express.static(appRoot+'/js/'));
 	app.use(express.static(appRoot+'/images/'));
 	app.use('/images', express.static('images'));
+
+	var call = function(fdsa){
+	}
+	var test = User.findByEmail("benjaminbarault@gmail.com", call);
 
 	require(appRoot+"/app/routes/index.routes.js")(router);
 	require(appRoot+"/app/routes/main.routes.js")(router);
