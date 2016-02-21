@@ -1,3 +1,29 @@
+$(document).on('ready', function(){
+	$('#login-username, #login-password').keypress(function(e){
+		var key = e.which ? e.which : e.keyCode;
+
+		if(key == 13){
+			logIn();
+		}
+	});
+
+	$('#login-password').keypress(function(e){
+		var key = e.which ? e.which : e.keyCode;
+
+		if(key == 13){
+			logIn();
+		}
+	});
+
+	$('#username, #email, #fname, #lname, #password').keypress(function(e){
+		var key = e.which ? e.which : e.keyCode;
+
+		if(key == 13){
+			signUp();
+		}
+	});
+});
+
 var signingUp = false;
 
 function signUp(){
