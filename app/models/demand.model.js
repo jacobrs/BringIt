@@ -1,11 +1,11 @@
 var Demand = function (data) {
   this.data = data;
   this.push = function(){
-    var postsRef = global.rootRef.child("demmands/"+this.data.id);
+    var postsRef = global.rootRef.child("demands/"+this.data.id);
     postsRef.set({
       fname: this.data.asker,
-      item: this.data.comments,
-      price: this.data.deliverer,
+      comments: this.data.comments,
+      deliverer: this.data.deliverer,
       destination: {
         long: this.data.destination.long,
         lat: this.data.destination.lat
@@ -19,7 +19,7 @@ var Demand = function (data) {
 }
 
 User.findByUsername = function (id, callback) {
-  global.rootRef.child("demmands/"+id).on("value", function(snapshot) {
+  global.rootRef.child("demands/"+id).on("value", function(snapshot) {
     var ret = snapshot.val();
     if(ret === null){
       callback(null);

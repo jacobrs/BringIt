@@ -18,7 +18,8 @@ exports.postUser = function(req, res, next){
 	var body = req.body;
 	var resp = {};
 
-	if(!funcs.isUndef(body.username) && !funcs.isUndef(body.email) && !funcs.isUndef(body.password)){
+	if(!funcs.isUndef(body.username) && !funcs.isUndef(body.fname) && !funcs.isUndef(body.email) && 
+	   !funcs.isUndef(body.password) && !funcs.isUndef(body.lname)){
 		funcs.createUser(body, req, res, next);
 	}else{
 		resp.error = "Invalid use of api";
@@ -32,7 +33,8 @@ exports.putUser = function(req, res, next){
 	var body = req.body;
 	var resp = {};	
 
-	if(!funcs.isUndef(body.username) || !funcs.isUndef(body.email) || !funcs.isUndef(body.password)){
+	if(!funcs.isUndef(body.username) && (!funcs.isUndef(body.fname) || !funcs.isUndef(body.email) || 
+		!funcs.isUndef(body.password) || !funcs.isUndef(body.lname))){
 		funcs.updateUser(body, req, res, next);
 	}else{
 		resp.error = "Invalid use of api";
