@@ -56,6 +56,16 @@ exports.login = function(username, password, req, res){
 	}
 }
 
+exports.logout = function(req, res){
+	var resp = {};
+
+	req.session.destroy(function(err){});
+
+	resp.success = "Logged out";
+	res.json(resp);
+	res.end();
+}
+
 exports.getUser = function(username, res){
 	var resp = {};
 

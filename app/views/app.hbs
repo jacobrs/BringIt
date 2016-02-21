@@ -28,11 +28,11 @@
 		    </div>
 
 		    <div class="collapse navbar-collapse" id="creds">
-          <form name="logout" id="logout" class="navbar-form navbar-right">
+          <div id="logout" class="navbar-form navbar-right">
             <div class="form-group" class="navbar-form navbar-right">
-              <button type="submit" id="logoutbtn" class="btn btn-default">Log Out</button>
+              <button id="logoutbtn" class="btn btn-default" onclick="logOut();">Log Out</button>
             </div>
-          </form>
+          </div>
           <p class="navbar-text navbar-right">Signed in as <strong>{{username}}</strong></p>
           <form name="demandbtns" id="demandbtns" class="navbar-form navbar-right">
             <div class="form-group" class="navbar-form navbar-right">

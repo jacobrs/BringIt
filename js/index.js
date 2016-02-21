@@ -108,12 +108,18 @@ function logIn(){
 						$('#login-result').html(data.error);
 
 						$('#loginbtn').html("Sign In");
+
+						$('#login-result').fadeIn(500, function(){
+							loggingIn = false;
+						}).css('display', 'inline');
 					}else{
 						// Login
 						$('#login-result').removeClass("alert-danger");
 						$('#login-result').addClass("alert-success");
 
 						$('#login-result').html("Redirecting...");
+
+						loggingIn = false;
 
 						window.location = "app";
 					}
@@ -122,9 +128,6 @@ function logIn(){
 					//console.log(e);
 				},
 				complete: function(){
-					$('#login-result').fadeIn(500, function(){
-						loggingIn = false;
-					}).css('display', 'inline');
 				}
 			});
 		});

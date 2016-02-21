@@ -14,6 +14,10 @@ exports.login = function(req, res, next){
 	}
 }
 
+exports.logout = function(req, res, next){
+	funcs.logout(req, res);
+}
+
 exports.getUser = function(req, res, next){
 	var resp = {};
 
