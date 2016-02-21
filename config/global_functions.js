@@ -458,8 +458,9 @@ exports.updateDemand = function(data, req, res){
 				res.end();
 			}else{
 				if(result.owner !== req.session.username){
-					if(result.deliverer === null && data.deliverer !== null){
+					if(result.deliverer === undefined && data.deliverer !== null){
 						result.deliverer = data.deliverer;
+						result.asker = data.fname;
 
 						var tDemand = new Demand(result);
 						tDemand.placeWithID(data.id);

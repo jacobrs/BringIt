@@ -117,8 +117,31 @@ function refreshActions(){
   if(curr !== undefined){
     if(items.child(curr).val().owner == myuname){
       $("#finishedbtn").show();
-    }else{
-    $("#deliverbtn").show();
+    }else if(items.child(curr).val().deliverer === undefined){
+      $("#deliverbtn").show();
+    }
+  }
+}
+
+function bringIt(){
+  if(curr !== undefined){
+    if(items.child(curr).val().owner != myuname && items.child(curr).val().deliverer === undefined){
+      $("#deliverbtn").show();
+      var data = items.child(curr).val();
+      data.deliverer = myuname;
+      data.destination.lat = parseFloat(data.destination.lat);
+      data.destination.lng = parseFloat(data.destination.long);
+      data.id = curr;
+      $.ajax({
+        url: "./demand",
+        method: "PUT",
+        data: data,
+        dataType: "json"
+      }).done(function (data){
+        console.log(data);
+      }).fail(function (data){
+        console.log(data);
+      });
     }
   }
 }
@@ -126,6 +149,7 @@ function refreshActions(){
 function clearList(){
   $("#result-list").html("");
 }
+
 var curr;
 function addSquare(item, key){
   addMarker({lat: parseFloat(item.destination.lat), lng: parseFloat(item.destination.long)}, item.item);
