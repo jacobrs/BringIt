@@ -8,7 +8,7 @@ html,body{
 }
 
 #landingpagebody{
-  background-size:cover;
+  background-size: cover;
   background-image: url("/images/coffee.jpg");
 }
 
@@ -50,4 +50,38 @@ html,body{
 
 #regbtn{
   width: calc(100% - 4em);
+}
+
+#search-bar{
+	width:20em;
+}
+
+#main{
+	height:calc(100% - 52px);
+}
+
+#main .row{
+	height:100%;
+}
+
+#main>.row {
+  overflow-y:scroll;
+}
+
+#left {
+  width: 33.33333%;
+	height:100%;
+}
+
+#map-canvas {
+	width:66.66666%;
+  height:100%;
+}
+
+#app-nav{
+	margin:0px;
+}
+
+#logout{
+	padding-right:0;
 }

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>App</title>
+    <meta name="generator" content="Bootply" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/indexStyle.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <!-- begin template -->
+    <nav class="navbar navbar-default" id="app-nav">
+		  <div class="container-fluid">
+		    <div class="navbar-header">
+		      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#creds" aria-expanded="false">
+		        <span class="sr-only">Toggle navigation</span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		      </button>
+		      <a class="navbar-brand" href="./app" id="brand">Our Amazing Website</a>
+		    </div>
+
+		    <div class="collapse navbar-collapse" id="creds">
+          <form name="logout" id="logout" class="navbar-form navbar-right">
+            <div class="form-group" class="navbar-form navbar-right">
+              <button type="submit" id="logoutbtn" class="btn btn-default">Log Out</button>
+            </div>
+          </form>
+          <p class="navbar-text navbar-right">Signed in as <strong>{{username}}</strong></p>
+		    </div>
+		  </div>
+		</nav>
+
+    <div class="container-fluid" id="main">
+      <div class="row">
+        <div class="col-xs-8" id="left"><br>
+          <form name="search" class="navbar-form">
+		        <div class="form-group">
+			        <input type="text" class="form-control" id="search-bar" placeholder="Search">
+		        </div>
+		        <button type="submit" class="btn btn-default">Search</button>
+		      </form>
+          <hr>
+          <div class="order-tile"></div>
+        </div>
+        <div class="col-xs-4" id="map-canvas"></div>
+      </div>
+    </div>
+    <!-- end template -->
+
+    <!-- script references -->
+    <script src="/jquery/dist/jquery.min.js"></script>
+    <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/scripts.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
+  </body>
+</html>

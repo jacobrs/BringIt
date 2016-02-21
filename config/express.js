@@ -31,7 +31,7 @@ module.exports = function(){
 	app.use('/images', express.static('images'));
 
 	require(appRoot+"/app/routes/index.routes.js")(router);
-	require(appRoot+"/app/routes/main.routes.js")(router);
+	require(appRoot+"/app/routes/app.routes.js")(router);
 	require(appRoot+"/app/routes/user.routes.js")(router);
 	require(appRoot+"/app/routes/demand.routes.js")(router);
 
