@@ -142,5 +142,34 @@ html,body{
 
 .resbox{
 	margin:0 auto;
-	max-width: calc(100% - 2em);
+	max-width: 100%;
+	padding-left: 1em;
+	padding-right:1em;
+}
+
+.top-hr{
+	margin-bottom:0;
+}
+
+.small-hr{
+	margin:0;
+	padding:0;
+}
+
+.resbox h4{
+	margin-top:0px;
+	padding-top:1em;
+	background-color:rgba(46, 26, 113, 0);
+	transition: background-color 0.5s ease;
+}
+
+.last-p{
+	padding-bottom:1em;
+	margin-bottom: 0px;
+}
+
+.resbox:hover{
+	cursor: pointer;
+	transition: background-color 0.5s ease;
+	background-color:rgba(46, 26, 113, 0.08);
 }
