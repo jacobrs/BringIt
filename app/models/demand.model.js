@@ -18,7 +18,7 @@ var Demand = function (data) {
   }
 }
 
-User.findByUsername = function (id, callback) {
+User.findById = function (id, callback) {
   global.rootRef.child("demmands/"+id).on("value", function(snapshot) {
     var ret = snapshot.val();
     if(ret === null){
