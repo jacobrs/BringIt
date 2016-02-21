@@ -64,6 +64,8 @@ function fillInAddress() {
   // Get each component of the address from the place details
   // and fill the corresponding field on the form.
   $("#autocomplete").val(place);
+  $("#lat").val(place.geometry.location.lat());
+  $("#lng").val(place.geometry.location.lng());
 }
 
 function geolocate() {
@@ -106,7 +108,8 @@ function clearList(){
 function addSquare(item){
   addMarker({lat: parseFloat(item.destination.lat), lng: parseFloat(item.destination.long)}, item.item);
   var curr = $("#result-list").html();
-  curr += "<div class='resbox'>";
+  curr += "<div class='resbox' onclick='map.setCenter({lat: " + parseFloat(item.destination.lat) + ", "+
+    "lng: " + parseFloat(item.destination.long)+ "});'>";
   curr += "<h4>" + item.fname + " needs " + item.item + "</h4>";
   curr += "<h5 class='price'>Predicted price of item $" + item.price;
 
@@ -121,9 +124,9 @@ function addSquare(item){
   curr += "<strong>Available @ </strong>" + item.shop + "<br>";
   curr += "<strong>Deliver to </strong>" + item.destination.label + "<br>";
   if(comments !== undefined){
-    curr += "<p><strong>Comments: </strong>" + item.comments + "</p>";
+    curr += "<p class='last-p'><strong>Comments: </strong>" + item.comments + "</p>";
   }
-  curr += "</div><hr>";
+  curr += "</div><hr class='small-hr'>";
   $("#result-list").html(curr);
 }
 
