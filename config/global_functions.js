@@ -219,7 +219,7 @@ exports.createDemand = function(data, res){
 			data.destination.long = data.destination.lng;
 
 			var tDemand = new Demand(data);
-			tDemand.push();
+			tDemand.place();
                 	resp.success = "Successful";
                 	res.json(resp);
                 	res.end();
