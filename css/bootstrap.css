@@ -9,6 +9,11 @@ html {
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
 }
+
+.class {
+  width: 60%;
+}
+
 body {
   margin: 0;
 }
@@ -228,6 +233,11 @@ th {
   img {
     max-width: 100% !important;
   }
+
+  h2 {
+    text-align: center;
+  }
+
   p,
   h2,
   h3 {
@@ -585,7 +595,7 @@ th {
 .glyphicon-resize-small:before {
   content: "\e097";
 }
-.glyphicon-exclamation-sign:before {
+.glyphicon-exclamation-sign:before {h2
   content: "\e101";
 }
 .glyphicon-gift:before {
@@ -1172,6 +1182,9 @@ hr {
 [role="button"] {
   cursor: pointer;
 }
+
+
+
 h1,
 h2,
 h3,
@@ -4961,10 +4974,20 @@ a.badge:focus {
 .jumbotron {
   padding-top: 30px;
   padding-bottom: 30px;
+  padding-left: 3%;
+  padding-right: 3%;
+  margin-top: 30px;
   margin-bottom: 30px;
+  margin-right: 20%;
+  margin-left: 20%;
   color: inherit;
   background-color: #eee;
 }
+
+.jumbotron h2{
+  text-align: center;
+}
+
 .jumbotron h1,
 .jumbotron .h1 {
   color: inherit;
