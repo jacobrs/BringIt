@@ -28,18 +28,18 @@ exports.getUser = function(username, res){
 		resp.error = "Username cannot be empty";
 		resp.code  = 400;
 		res.json(resp);
-		res.end();	
+		res.end();
 	}
 };
 
 // Helper function that deals with a response and determines
 // if the user should be created (and creates it) or not
 exports.createUser = function(data, res){
-	var resp = {};	
+	var resp = {};
 	resp.errors = [];
 
 	if(!global.usernameRegex.test(data.username)){
-                resp.errors.push({ 
+                resp.errors.push({
                         errorType: "username",
                         text:      "Invalid characters in the username"
                 });
@@ -80,17 +80,17 @@ exports.createUser = function(data, res){
                         	text:      "Invalid email format"
                 	});
         	}
-		
+
 		User.findByEmail(data.email, function(result){
 			if(result !== null){
 				resp.errors.push({
                                 	errorType: "email",
                                 	text:      "Email is already taken"
-                        	});	
+                        	});
 			}
 
 			if(resp.errors.length === 0){
-				resp.errors = undefined;				
+				resp.errors = undefined;
 
 				var salt = bcrypt.genSaltSync(10);
 		        data.password = bcrypt.hashSync(data.password, salt);
@@ -120,7 +120,7 @@ exports.deleteUser = function(username, res){
 
 exports.getDemand = function(id, res){
 	var resp = {};
-	
+
 	// Validate input
 	if(global.onlyIntsRegex.test(id)){
 		Demand.findById(id, function(result){
@@ -128,12 +128,12 @@ exports.getDemand = function(id, res){
 				resp.result  = result;
 				resp.success = "Request was successful";
 				res.json(resp);
-				res.end(); 
+				res.end();
 			}else{
 				resp.error = "No demand that matches the ID";
 				resp.code  = 400;
 				res.json(resp);
-				res.end();	
+				res.end();
 			}
 		});
 	}else{
@@ -145,7 +145,7 @@ exports.getDemand = function(id, res){
 };
 
 exports.createDemand = function(data, res){
-	var resp = {};	
+	var resp = {};
 	resp.errors = [];
 
 	// Validate input
@@ -154,15 +154,7 @@ exports.createDemand = function(data, res){
 			errorType: "deliverer",
 			text:	   "Invalid characters in deliverer's username"
 		});
-	}	
-
-	User.findByUsername(data.deliverer, function(result){
-		if(result === null){
-			resp.errors.push({
-                        	errorType: "deliverer",
-                        	text:      "Deliverer username does not match existing username"
-                	});
-		}
+	}
 
 		if(!global.individNameRegex.test(data.fname)){
                 	resp.errors.push({
@@ -177,7 +169,7 @@ exports.createDemand = function(data, res){
                         	text:      "Invalid characters in the comments"
                 	});
        		}
-		
+
         	if(!global.latLngRegex.test(data.destination.lat) || !global.latLngRegex.test(data.destination.lng)){
                 	resp.errors.push({
                         	errorType: "latLng",
@@ -205,14 +197,14 @@ exports.createDemand = function(data, res){
                         	text:      "Invalid characters in the shop name"
                 	});
         	}
-	
+
 		if(!global.tipRegex.test(data.tip)){
                 	resp.errors.push({
                         	errorType: "tip",
                         	text:      "Invalid characters in the tip"
                 	});
         	}
-	
+
 		if(resp.errors.length === 0){
 			resp.errors = undefined;
 			data.asker  = data.fname;
@@ -228,7 +220,6 @@ exports.createDemand = function(data, res){
         		res.json(resp);
         		res.end();
 		}
-	});
 };
 
 exports.updateDemand = function(data, res){

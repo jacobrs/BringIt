@@ -17,8 +17,8 @@ exports.postDemand = function(req, res, next){
 	var body = req.body;
 	var resp = {};
 
-	if(!funcs.isUndef(body.fname) && !funcs.isUndef(body.item) && !funcs.isUndef(body.price) && 
-	   !funcs.isUndef(body.destination) && !funcs.isUndef(body.deliverer) && !funcs.isUndef(body.tip)){
+	if(!funcs.isUndef(body.fname) && !funcs.isUndef(body.item) && !funcs.isUndef(body.price) &&
+	   !funcs.isUndef(body.destination) && !funcs.isUndef(body.shop) && !funcs.isUndef(body.tip)){
 		funcs.createDemand(body, res);
 	}else{
 		resp.error = "Invalid use of api";
