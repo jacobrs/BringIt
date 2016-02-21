@@ -6,7 +6,7 @@ exports.isUndef = function(item){
 	return item === undefined || item === null;
 };
 
-exports.getUser = function(username, req, res, next){
+exports.getUser = function(username, res){
 	var resp = {};
 
 	// Validate input
@@ -32,58 +32,92 @@ exports.getUser = function(username, req, res, next){
 	}
 };
 
-exports.createUser = function(data, req, res, next){
-	var resp = {};
-	
-	// Validate input
-	if((global.usernameRegex).test(data.username)){
-		if(User.findByUsername(data.username) === null){
-			if((global.passwordRegex).test(data.password)){
-				if((global.individNameRegex).test(data.fname)){
-					if((global.individNameRegex).test(data.lname)){
-						// TODO: Make sure it isn't a duplicate email
-						if((global.emailRegex).test(data.email)){
-							var salt = bcrypt.genSaltSync(10);
-							data.password = bcrypt.hashSync(data.password, salt);
+// Helper function that deals with a response and determines
+// if the user should be created (and creates it) or not
+exports.createUser = function(data, res){
+	var resp = {};	
+	resp.errors = [];
 
-							var tempUser = new User(data);
-							tempUser.push();
-							resp.success = "Successful";
-							res.json(resp);
-							res.end();
-						}else{
-							resp.error = "Invalid email format";
-						}		
-					}else{
-						resp.error = "Invalid characters in the last name";
-					}
-				}else{
-					resp.error = "Invalid characters in the first name";		
-				}
-			}else{
-				resp.error = "Invalid characters in the password";
-			}
-		}else{
-			resp.error = "Username is already taken";	
+	if(!global.usernameRegex.test(data.username)){
+                resp.errors.push({ 
+                        errorType: "username",
+                        text:      "Invalid characters in the username"
+                });
+        }
+
+	User.findByUsername(data.username, function(result){
+		if(result !== null){
+			resp.errors.push({
+                        	errorType: "username",
+                        	text:      "Username is already taken"
+                	});
 		}
-	}else{
-		resp.error = "Invalid characters in the username";
-	}
-	
-	resp.code = 400;
-	res.json(resp);
-	res.end();
+
+		if(!global.passwordRegex.test(data.password)){
+                	resp.errors.push({
+                        	errorType: "password",
+                        	text:      "Invalid characters in the password"
+                	});
+        	}
+
+        	if(!global.individNameRegex.test(data.fname)){
+                	resp.errors.push({
+                        	errorType: "fname",
+                        	text:      "Invalid characters in the first name"
+                	});
+        	}
+
+        	if(!global.individNameRegex.test(data.lname)){
+                	resp.errors.push({
+                        	errorType: "lname",
+                        	text:      "Invalid characters in the last name"
+                	});
+        	}
+
+       		if(!global.emailRegex.test(data.email)){
+                	resp.errors.push({
+                        	errorType: "email",
+                        	text:      "Invalid email format"
+                	});
+        	}
+		
+		User.findByEmail(data.email, function(result){
+			if(result !== null){
+				resp.errors.push({
+                                	errorType: "email",
+                                	text:      "Email is already taken"
+                        	});	
+			}
+
+			if(resp.errors.length === 0){
+				resp.errors = undefined;				
+
+				var salt = bcrypt.genSaltSync(10);
+		                data.password = bcrypt.hashSync(data.password, salt);
+
+		                var tempUser = new User(data);
+				tempUser.push();
+		                resp.success = "Successful";
+				res.json(resp);
+				res.end();
+			}else{
+				resp.code = 400;
+				res.json(resp);
+				res.end();
+			}
+		});
+	});
 };
 
-exports.updateUser = function(data, req, res, next){
+exports.updateUser = function(data, res){
 	// Validate input
 };
 
-exports.deleteUser = function(username, req, res, next){
+exports.deleteUser = function(username, res){
 	// Validate input
 };
 
-exports.getDemand = function(id, req, res, next){
+exports.getDemand = function(id, res){
 	var resp = {};
 	
 	// Validate input
@@ -109,17 +143,97 @@ exports.getDemand = function(id, req, res, next){
 	}
 };
 
-exports.createDemand = function(data, req, res, next){
+exports.createDemand = function(data, res){
 	var resp = {};	
+	resp.errors = [];
 
 	// Validate input
+	if(!global.usernameRegex.test(data.deliverer)){
+		resp.errors.push({
+			errorType: "deliverer",
+			text:	   "Invalid characters in deliverer's username"
+		});
+	}	
+
+	User.findByUsername(data.deliverer, function(result){
+		if(result === null){
+			resp.errors.push({
+                        	errorType: "deliverer",
+                        	text:      "Deliverer username does not match existing username"
+                	});
+		}
+
+		if(!global.individNameRegex.test(data.fname)){
+                	resp.errors.push({
+                        	errorType: "fname",
+                        	text:      "Invalid characters in the first name"
+                	});
+        	}
+
+        	if(!global.commentRegex.test(data.comments)){
+                	resp.errors.push({
+                        	errorType: "comments",
+                        	text:      "Invalid characters in the comments"
+                	});
+       		}
+		
+        	if(!global.latLngRegex.test(data.destination.lat) || !global.latLngRegex.test(data.destination.lng)){
+                	resp.errors.push({
+                        	errorType: "latLng",
+                        	text:      "Invalid characters in the latitude or longitude"
+                	});
+        	}
+
+        	if(!global.itemRegex.test(data.item)){
+                	resp.errors.push({
+                        	errorType: "item",
+                       		text:      "Invalid characters in the item name"
+                	});
+        	}
+
+        	if(!global.priceRegex.test(data.price)){
+                	resp.errors.push({
+                        	errorType: "price",
+                        	text:      "Invalid characters in the price"
+                	});
+        	}
+
+        	if(!global.shopRegex.test(data.shop)){
+                	resp.errors.push({
+                        	errorType: "shop",
+                        	text:      "Invalid characters in the shop name"
+                	});
+        	}
 	
+		if(!global.tipRegex.test(data.tip)){
+                	resp.errors.push({
+                        	errorType: "tip",
+                        	text:      "Invalid characters in the tip"
+                	});
+        	}
+	
+		if(resp.errors.length === 0){
+			resp.errors = undefined;
+			data.asker  = data.fname;
+			data.destination.long = data.destination.lng;
+
+			var tempDemand = new Demand(data);
+			tempDemand.push();
+                	resp.success = "Successful";
+                	res.json(resp);
+                	res.end();
+        	}else{
+        		resp.code = 400;
+        		res.json(resp);
+        		res.end();
+		}
+	});
 };
 
-exports.updateDemand = function(data, req, res, next){
+exports.updateDemand = function(data, res){
 	// Validate input
 };
 
-exports.deleteDemand = function(id, req, res, next){
+exports.deleteDemand = function(id, res){
 	// Validate input
 }
