@@ -9,7 +9,7 @@ var User = function (data) {
       password: this.data.password,
       rating: 0
     });
-  }
+  };
 }
 
 User.findByUsername = function (username, callback) {

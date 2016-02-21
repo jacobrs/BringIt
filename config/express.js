@@ -47,7 +47,7 @@ module.exports = function(){
 	require(appRoot+"/app/routes/index.routes.js")(router);
 	require(appRoot+"/app/routes/user.routes.js")(router);
 
-	app.use(function(req, res, next){
+	/*app.use(function(req, res, next){
 		if((req.url == "index.html" || req.url == "/") && req.session.username !== undefined){
 			res.redirect("/app");
 			res.end();
@@ -59,7 +59,7 @@ module.exports = function(){
 		}else{
 			next();
 		}
-	});
+	});*/
 
 	require(appRoot+"/app/routes/app.routes.js")(router);
 	require(appRoot+"/app/routes/demand.routes.js")(router);

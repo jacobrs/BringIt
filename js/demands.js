@@ -1,10 +1,32 @@
 $(document).on('ready', function(){
-  $('#search-bar').on('keypress', function(e){
+  $('#search-bar').on('keyup', function(e){
     var key = e.which ? e.which : e.keyCode;
 
-
+    if(items !== undefined){
+      var narrowedDownItems = searchItemsLike($('#search-bar').val(), items);
+    }
   });
 });
+
+function searchItemsLike(theString, searchItems){
+  var reg = new RegExp(theString, 'i');
+  var newList = [];
+
+  searchItems.forEach(function (val){
+    var singleItem = val.val();
+    for(var index in singleItem){
+      if(reg.test(singleItem[index]) && typeof singleItem[index] == "string"){
+        newList.push(val);
+        break;
+      }
+    }
+  });
+
+  clearList();
+  newList.forEach(function (val){
+    addSquare(val.val());
+  });
+}
 
 var firebase = "https://delivernow.firebaseio.com/";
 var placeSearch, autocomplete;
@@ -29,7 +51,9 @@ function makeDemand(){
         $("[id^="+item.errorType+"-r]").show();
       });
     }
+    //console.log(data);
   }).fail(function (data){
+    //console.log(data);
   });
 }
 
@@ -68,6 +92,10 @@ function refreshList(list){
       addSquare(val.val());
     });
     setMapOnAll(map);
+  }
+
+  if($('#search-bar').val() != ""){
+    $('#search-bar').trigger('keypress');
   }
 }
 

@@ -100,66 +100,65 @@ exports.createUser = function(data, req, res){
 	resp.errors = [];
 
 	if(!global.usernameRegex.test(data.username)){
-        resp.errors.push({
-            errorType: "username",
-            text:      "Invalid characters in the username"
-        });
-    }
+    resp.errors.push({
+      errorType: "username",
+      text:      "Invalid characters in the username"
+    });
+  }
 
 	User.findByUsername(data.username, function(result){
 		if(result !== null){
 			if(data.username != ""){
 				resp.errors.push({
-            		errorType: "username",
-            		text:      "Username is already taken"
-        		});
+      		errorType: "username",
+      		text:      "Username is already taken"
+    		});
 			}
 		}
 
 		if(!global.passwordRegex.test(data.password)){
-        	resp.errors.push({
-            	errorType: "password",
-            	text:      "Invalid characters in the password"
-        	});
-    	}
+    	resp.errors.push({
+      	errorType: "password",
+      	text:      "Invalid characters in the password"
+    	});
+  	}
 
-    	if(!global.individNameRegex.test(data.fname)){
-        	resp.errors.push({
-            	errorType: "fname",
-            	text:      "Invalid characters in the first name"
-        	});
-    	}
+  	if(!global.individNameRegex.test(data.fname)){
+    	resp.errors.push({
+      	errorType: "fname",
+      	text:      "Invalid characters in the first name"
+    	});
+  	}
 
-    	if(!global.individNameRegex.test(data.lname)){
-        	resp.errors.push({
-            	errorType: "lname",
-            	text:      "Invalid characters in the last name"
-        	});
-    	}
+  	if(!global.individNameRegex.test(data.lname)){
+    	resp.errors.push({
+      	errorType: "lname",
+      	text:      "Invalid characters in the last name"
+    	});
+  	}
 
-   		if(!global.emailRegex.test(data.email)){
-        	resp.errors.push({
-            	errorType: "email",
-            	text:      "Invalid email format"
-        	});
-    	}
+ 		if(!global.emailRegex.test(data.email)){
+    	resp.errors.push({
+      	errorType: "email",
+      	text:      "Invalid email format"
+    	});
+  	}
 
 		User.findByEmail(data.email, function(result){
 			if(result !== null){
 				resp.errors.push({
-                	errorType: "email",
-                	text:      "Email is already taken"
-            	});
+        	errorType: "email",
+        	text:      "Email is already taken"
+      	});
 			}
 
 			if(resp.errors.length === 0){
 				resp.errors = undefined;
 
 				var salt = bcrypt.genSaltSync(10);
-		        data.password = bcrypt.hashSync(data.password, salt);
+        data.password = bcrypt.hashSync(data.password, salt);
 
-		        var tUser = new User(data);
-
+        var tUser = new User(data);
 				tUser.place();
 
 				req.session.username = data.username;
@@ -169,7 +168,7 @@ exports.createUser = function(data, req, res){
 
 				req.session.regenerate(function(err){});
 
-		        resp.success = "Successful";
+		    resp.success = "Successful";
 				res.json(resp);
 				res.end();
 			}else{
@@ -181,8 +180,99 @@ exports.createUser = function(data, req, res){
 	});
 };
 
-exports.updateUser = function(data, res){
+exports.updateUser = function(data, req, res){
 	// Validate input
+	var resp = {};
+	resp.errors = [];
+
+	if(req.session.username !== data.username){
+		resp.errors.push({
+      errorType: "conflict",
+      text:      "This account does not belong to you"
+    });
+
+		resp.code = 400;
+		res.json(resp);
+		res.end();
+	}
+
+	if(!global.usernameRegex.test(data.username)){
+    resp.errors.push({
+      errorType: "username",
+      text:      "Invalid characters in the username"
+    });
+  }
+
+	User.findByUsername(data.username, function(result){
+		if(result === null){
+			resp.errors.push({
+    		errorType: "username",
+    		text:      "This account does not belong to you"
+  		});
+		}
+
+		if(!global.passwordRegex.test(data.password)){
+    	resp.errors.push({
+      	errorType: "password",
+      	text:      "Invalid characters in the password"
+    	});
+  	}
+
+  	if(!global.individNameRegex.test(data.fname)){
+    	resp.errors.push({
+      	errorType: "fname",
+      	text:      "Invalid characters in the first name"
+    	});
+  	}
+
+  	if(!global.individNameRegex.test(data.lname)){
+    	resp.errors.push({
+      	errorType: "lname",
+      	text:      "Invalid characters in the last name"
+    	});
+  	}
+
+ 		if(!global.emailRegex.test(data.email)){
+    	resp.errors.push({
+      	errorType: "email",
+      	text:      "Invalid email format"
+    	});
+  	}
+
+		User.findByEmail(data.email, function(result){
+			if(result !== null){
+				resp.errors.push({
+        	errorType: "email",
+        	text:      "Email is already taken"
+      	});
+			}
+
+			if(resp.errors.length === 0){
+				resp.errors = undefined;
+
+				var salt = bcrypt.genSaltSync(10);
+        data.password = bcrypt.hashSync(data.password, salt);
+
+        var tUser = new User(data);
+				tUser.place();
+
+				req.session.username = data.username;
+				req.session.fname    = data.fname;
+				req.session.lname    = data.lname;
+				req.session.email    = data.email;
+
+				req.session.regenerate(function(err){});
+
+		    resp.success = "Successful";
+				res.json(resp);
+				res.end();
+			}else{
+				resp.code = 400;
+				res.json(resp);
+				res.end();
+			}
+		});
+	});
 };
 
 exports.deleteUser = function(username, res){
@@ -222,79 +312,187 @@ exports.createDemand = function(data, res){
 	// Validate input
 	if(data.delieverer !== null && !global.usernameRegex.test(data.deliverer)){
 		resp.errors.push({
-            	errorType: "delieverer",
-            	text:      "Invalid characters in the delieverer"
-    	});
+    	errorType: "delieverer",
+    	text:      "Invalid characters in the delieverer"
+  	});
 	}
 
-		if(!global.individNameRegex.test(data.fname)){
-                	resp.errors.push({
-                        	errorType: "fname",
-                        	text:      "Invalid characters in the first name"
-                	});
-        	}
+	if(!global.individNameRegex.test(data.fname)){
+  	resp.errors.push({
+    	errorType: "fname",
+    	text:      "Invalid characters in the first name"
+  	});
+	}
 
-        	if(!global.commentRegex.test(data.comments)){
-                	resp.errors.push({
-                        	errorType: "comments",
-                        	text:      "Invalid characters in the comments"
-                	});
-       		}
+	if(!global.commentRegex.test(data.comments)){
+  	resp.errors.push({
+    	errorType: "comments",
+    	text:      "Invalid characters in the comments"
+  	});
+	}
 
-        	if(!global.latLngRegex.test(data.destination.lat) || !global.latLngRegex.test(data.destination.lng)){
-                	resp.errors.push({
-                        	errorType: "latLng",
-                        	text:      "Invalid characters in the latitude or longitude"
-                	});
-        	}
+	if(!global.latLngRegex.test(data.destination.lat) || !global.latLngRegex.test(data.destination.lng)){
+  	resp.errors.push({
+    	errorType: "latLng",
+    	text:      "Invalid characters in the latitude or longitude"
+  	});
+	}
 
-        	if(!global.itemRegex.test(data.item)){
-                	resp.errors.push({
-                        	errorType: "item",
-                       		text:      "Invalid characters in the item name"
-                	});
-        	}
+	if(!global.itemRegex.test(data.item)){
+  	resp.errors.push({
+    	errorType: "item",
+   		text:      "Invalid characters in the item name"
+  	});
+	}
 
-        	if(!global.priceRegex.test(data.price)){
-                	resp.errors.push({
-                        	errorType: "price",
-                        	text:      "Invalid characters in the price"
-                	});
-        	}
+	if(!global.priceRegex.test(data.price)){
+  	resp.errors.push({
+    	errorType: "price",
+    	text:      "Invalid characters in the price"
+  	});
+	}
 
-        	if(data.shop !== null && !global.shopRegex.test(data.shop)){
-                	resp.errors.push({
-                        	errorType: "shop",
-                        	text:      "Invalid characters in the shop name"
-                	});
-        	}
+	if(data.shop !== null && !global.shopRegex.test(data.shop)){
+  	resp.errors.push({
+    	errorType: "shop",
+    	text:      "Invalid characters in the shop name"
+  	});
+	}
 
-		if(!global.tipRegex.test(data.tip)){
-                	resp.errors.push({
-                        	errorType: "tip",
-                        	text:      "Invalid characters in the tip"
-                	});
-        	}
+	if(!global.tipRegex.test(data.tip)){
+  	resp.errors.push({
+    	errorType: "tip",
+    	text:      "Invalid characters in the tip"
+  	});
+	}
 
-		if(resp.errors.length === 0){
-			resp.errors = undefined;
-			data.asker  = data.fname;
-			data.destination.long = data.destination.lng;
+	if(resp.errors.length === 0){
+		resp.errors = undefined;
+		data.asker  = data.fname;
+		data.destination.long = data.destination.lng;
+		data.owner  = req.session.username;
 
-			var tDemand = new Demand(data);
-			tDemand.place();
-                	resp.success = "Successful";
-                	res.json(resp);
-                	res.end();
-        	}else{
-        		resp.code = 400;
-        		res.json(resp);
-        		res.end();
-		}
+		var tDemand = new Demand(data);
+		tDemand.place();
+  	resp.success = "Successful";
+  	res.json(resp);
+  	res.end();
+	}else{
+		resp.code = 400;
+		res.json(resp);
+		res.end();
+	}
 };
 
-exports.updateDemand = function(data, res){
+exports.updateDemand = function(data, req, res){
 	// Validate input
+	var resp = {};
+	resp.errors = [];
+
+	// Validate input
+	if(data.deliverer !== null && !global.usernameRegex.test(data.deliverer)){
+		resp.errors.push({
+    	errorType: "deliverer",
+    	text:      "Invalid characters in the delieverer"
+  	});
+	}
+
+	if(!global.individNameRegex.test(data.fname)){
+  	resp.errors.push({
+    	errorType: "fname",
+    	text:      "Invalid characters in the first name"
+  	});
+	}
+
+	if(!global.commentRegex.test(data.comments)){
+  	resp.errors.push({
+    	errorType: "comments",
+    	text:      "Invalid characters in the comments"
+  	});
+	}
+
+	if(!global.latLngRegex.test(data.destination.lat) || !global.latLngRegex.test(data.destination.lng)){
+  	resp.errors.push({
+    	errorType: "latLng",
+    	text:      "Invalid characters in the latitude or longitude"
+  	});
+	}
+
+	if(!global.itemRegex.test(data.item)){
+  	resp.errors.push({
+    	errorType: "item",
+   		text:      "Invalid characters in the item name"
+  	});
+	}
+
+	if(!global.priceRegex.test(data.price)){
+  	resp.errors.push({
+    	errorType: "price",
+    	text:      "Invalid characters in the price"
+  	});
+	}
+
+	if(data.shop !== null && !global.shopRegex.test(data.shop)){
+  	resp.errors.push({
+    	errorType: "shop",
+    	text:      "Invalid characters in the shop name"
+  	});
+	}
+
+	if(!global.tipRegex.test(data.tip)){
+  	resp.errors.push({
+    	errorType: "tip",
+    	text:      "Invalid characters in the tip"
+  	});
+	}
+
+	if(resp.errors.length === 0){
+		Demand.findById(data.id, function(result){
+			if(result === null){
+				resp.errors.push({
+        	errorType: "id",
+        	text:      "Demand does not exist"
+      	});
+      	resp.code = 400;
+				res.json(resp);
+				res.end();
+			}else{
+				if(result.owner !== req.session.username){
+					if(result.deliverer === null && data.deliverer !== null){
+						result.deliverer = data.deliverer;
+
+						var tDemand = new Demand(result);
+						tDemand.placeWithID(data.id);
+			    	resp.success = "Successful";
+			    	res.json(resp);
+			    	res.end();
+					}else{
+						resp.errors.push({
+		        	errorType: "conflict",
+		        	text:      "You do not own the demand"
+		      	});
+		      	resp.code = 400;
+						res.json(resp);
+						res.end();
+					}
+				}else{
+					resp.errors = undefined;
+					data.asker  = data.fname;
+					data.destination.long = data.destination.lng;
+
+					var tDemand = new Demand(data);
+					tDemand.placeWithID(data.id);
+		    	resp.success = "Successful";
+		    	res.json(resp);
+		    	res.end();
+				}
+			}
+		});
+	}else{
+		resp.code = 400;
+		res.json(resp);
+		res.end();
+	}
 };
 
 exports.deleteDemand = function(id, res){
