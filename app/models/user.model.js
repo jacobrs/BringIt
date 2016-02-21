@@ -17,16 +17,14 @@ User.findByUsername = function (username, callback) {
   var onValueChange = function(snapshot) {
     var ret = snapshot.val();
     if(ret === null){
-      global.rootRef.child("users/"+username).off('value', onValueChange);
       callback(null);
     }else{
       ret.username = username;
-      global.rootRef.child("users/"+username).off('value', onValueChange);
       callback(ret);
     }
   }
 
-  global.rootRef.child("users/"+username).on("value", onValueChange);
+  global.rootRef.child("users/"+username).once("value", onValueChange);
 }
 
 User.findByEmail = function (email, callback) {
