@@ -1,0 +1,53 @@
+html,body{
+	height:100%;
+  color:#555;
+}
+
+.navbar{
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+#landingpagebody{
+  background-size:cover;
+  background-image: url("/images/coffee.jpg");
+}
+
+#brand{
+  color:#555;
+}
+
+.form-control{
+  border-radius: 0px;
+}
+
+.btn{
+  border-radius: 0px;
+  background-color:#3F51B5;
+  color:#fff;
+  border-color:#3F51B5;
+}
+
+.btn:hover{
+  background-color:#5C6BC0;
+  color:#fff;
+  border-color:#3F51B5;
+}
+
+#main-nav{
+  border:0px;
+  border-bottom:1px solid #e7e7e7;
+  border-radius: 0px;
+}
+
+#registration{
+  margin:0 auto;
+  max-width: calc(100% - 2em);
+  width: 25em;
+  margin-top:6em;
+  text-align:center;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+#regbtn{
+  width: calc(100% - 4em);
+}
