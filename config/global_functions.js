@@ -6,7 +6,7 @@ exports.isUndef = function(item){
 	return item === undefined || item === null;
 };
 
-exports.logIn = function(username, password, req, res){
+exports.login = function(username, password, req, res){
 	var resp = {};
 
 	// Validate input
@@ -15,36 +15,55 @@ exports.logIn = function(username, password, req, res){
 			User.findByUsername(username, function(result){
 				if(result !== null){
 					if(bcrypt.compareSync(password, result.password)){
-						req.session.username = data.username;
-						req.session.fname    = data.fname;
-						req.session.lname    = data.lname;
-						req.session.email    = data.email;
+						req.session.username = result.username;
+						req.session.fname    = result.fname;
+						req.session.lname    = result.lname;
+						req.session.email    = result.email;
 
 						req.session.regenerate(function(err){});
 
 						resp.success = "Logged In";
 						res.json(resp);
 						res.end();
+					}else{
+						resp.errorType = "both";
+						resp.error = "Username or password was incorrect";
+						resp.code  = 400;
+						res.json(resp);
+						res.end();
 					}
+				}else{
+					resp.errorType = "both";
+					resp.error = "Username or password was incorrect";
+					resp.code  = 400;
+					res.json(resp);
+					res.end();
 				}
-
-				resp.error = "Username or password was incorrect";
-				resp.code  = 400;
-				res.json(resp);
-				res.end();
 			});
 		}else{
+			resp.errorType = "password";
 			resp.error = "Password cannot be empty";
 			resp.code  = 400;
 			res.json(resp);
 			res.end();
 		}
 	}else{
+		resp.errorType = "username";
 		resp.error = "Username cannot be empty";
 		resp.code  = 400;
 		res.json(resp);
 		res.end();
 	}
+}
+
+exports.logout = function(req, res){
+	var resp = {};
+
+	req.session.destroy(function(err){});
+
+	resp.success = "Logged out";
+	res.json(resp);
+	res.end();
 }
 
 exports.getUser = function(username, res){
@@ -89,10 +108,12 @@ exports.createUser = function(data, req, res){
 
 	User.findByUsername(data.username, function(result){
 		if(result !== null){
-			resp.errors.push({
-            	errorType: "username",
-            	text:      "Username is already taken"
-        	});
+			if(data.username != ""){
+				resp.errors.push({
+            		errorType: "username",
+            		text:      "Username is already taken"
+        		});
+			}
 		}
 
 		if(!global.passwordRegex.test(data.password)){
@@ -200,7 +221,7 @@ exports.createDemand = function(data, res){
 
 	// Validate input
 	if(!global.usernameRegex.test(data.deliverer)){
-		data.deliverer = "";
+		data.deliverer = " ";
 	}
 
 		if(!global.individNameRegex.test(data.fname)){
@@ -239,7 +260,7 @@ exports.createDemand = function(data, res){
         	}
 
         	if(!global.shopRegex.test(data.shop)){
-                	data.shop = "";
+                	data.shop = " ";
         	}
 
 		if(!global.tipRegex.test(data.tip)){

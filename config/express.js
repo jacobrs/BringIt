@@ -16,7 +16,8 @@ module.exports = function(){
 		name: "ohIkgFh3KKxSS57",
 		secret: "Ben is awesome",
 		cookie: { 
-			secure: true
+			secure: false,
+			maxAge: 24*60*60*1000
 		},
 		resave: true,
     	saveUninitialized: false
@@ -44,8 +45,8 @@ module.exports = function(){
 	app.use('/images', express.static('images'));
 
 	require(appRoot+"/app/routes/index.routes.js")(router);
-	require(appRoot+"/app/routes/app.routes.js")(router);
 	require(appRoot+"/app/routes/user.routes.js")(router);
+	require(appRoot+"/app/routes/app.routes.js")(router);
 	require(appRoot+"/app/routes/demand.routes.js")(router);
 
 	app.use(router);

@@ -1,5 +1,23 @@
 var funcs = require(appRoot+"/config/global_functions.js"); 
 
+exports.login = function(req, res, next){
+	var body = req.body;
+	var resp = {};
+
+	if(!funcs.isUndef(body.username) && !funcs.isUndef(body.password)){
+		funcs.login(body.username, body.password, req, res);
+	}else{
+		resp.error = "Invalid use of api";
+		resp.code  = 400;
+		res.json(resp);
+		res.end();
+	}
+}
+
+exports.logout = function(req, res, next){
+	funcs.logout(req, res);
+}
+
 exports.getUser = function(req, res, next){
 	var resp = {};
 
