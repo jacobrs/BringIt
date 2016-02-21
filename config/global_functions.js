@@ -221,7 +221,7 @@ exports.createDemand = function(data, res){
 
 	// Validate input
 	if(!global.usernameRegex.test(data.deliverer)){
-		data.deliverer = " ";
+		data.deliverer = null;
 	}
 
 		if(!global.individNameRegex.test(data.fname)){
@@ -260,7 +260,7 @@ exports.createDemand = function(data, res){
         	}
 
         	if(!global.shopRegex.test(data.shop)){
-                	data.shop = " ";
+                	data.shop = null;
         	}
 
 		if(!global.tipRegex.test(data.tip)){
