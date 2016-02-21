@@ -25,10 +25,12 @@ User.findByUsername = function (username, callback) {
 }
 
 User.findByEmail = function (email, callback) {
-  global.rootRef.child("users").on("value", function(snapshot) {
+
+  var onValueChange = function(snapshot) {
     var ret = snapshot;
 
     if(ret === null){
+      global.rootRef.child("users").off('value', onValueChange);
       callback(null);
     }else{
 
@@ -37,6 +39,7 @@ User.findByEmail = function (email, callback) {
         if(value.val().email == email){
           var u = value.val();
           u.username = value.key();
+          global.rootRef.child("users").off('value', onValueChange);
           callback(u);
           found = true;
           return;
@@ -44,10 +47,13 @@ User.findByEmail = function (email, callback) {
       });
 
       if(!found){
+        global.rootRef.child("users").off('value', onValueChange);
         callback(null);
       }
     }
-  });
+  }
+
+  global.rootRef.child("users").on("value", onValueChange);
 }
 
 module.exports = User;
