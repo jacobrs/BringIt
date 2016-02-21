@@ -41,44 +41,56 @@
     </div>
   </div>
 
-
   <div class="container-fluid" id="main">
     <div class="row">
       <div class="col-xs-8" id="left">
         <h2>Welcome to FKALL</h2>
         <hr>
         <!-- item list -->
-        <div class="panel panel-default">
-          <div class="panel-heading"><a href="">Item heading</a></div>
+        <!--
+        <div class="order">
+          <div class="order-panel"><a href="">Item heading</a></div>
         </div>
         <p>item 1</p>
         <hr>
+        -->
 
+        <div class="order-tile"></div>
+        <!---
         <div class="panel panel-default">
-          <div class="panel-heading"><a href="">Item heading</a></div>
-        </div>
-        <p>item 2</p>
-        <hr>
-
-        <div class="panel panel-default">
-          <div class="panel-heading"><a href="">Item heading</a></div>
-        </div>
-        <p>item 3</p>
-        <hr>
-
-        <div class="panel panel-default">
-          <div class="panel-heading"><a href="">Item heading</a></div>
-        </div>
-        <p>item 4</p>
-        <hr>
+        <div class="panel-heading"><a href="">Item heading</a></div>
       </div>
-      <div class="col-xs-4" id="map-canvas"></div>
-    </div>
-  </div>
-  <!-- end template -->
+      <p>item 2</p>
+      <hr>
 
-  <!-- script references -->
-  <script src="js/scripts.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
+      <div class="panel panel-default">
+      <div class="panel-heading"><a href="">Item heading</a></div>
+    </div>
+    <p>item 3</p>
+    <hr>
+
+    <div class="panel panel-default">
+    <div class="panel-heading"><a href="">Item heading</a></div>
+  </div>
+  <p>item 4</p>
+  <hr>
+  --->
+</div>
+<div class="col-xs-4" id="map-canvas"></div>
+</div>
+</div>
+<!-- end template -->
+
+<!-- script references -->
+<script id="order-panel" type="text/x-handlebars-template">
+  {{description.escaped}}
+  {{example}}
+  <br>
+  {{description.unescaped}}
+  {{{example}}}
+</script>
+<script src="js/handlebars-v4.0.5.js"></script>
+<script src="js/scripts.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
 </body>
 </html>
