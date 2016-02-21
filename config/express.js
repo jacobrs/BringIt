@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 var serverLogging = function(req, res, next){
 	console.log(req.method, req.url);
 	next();
-}; 
+};
 
 module.exports = function(){
 	var app    = express();
@@ -24,6 +24,9 @@ module.exports = function(){
 	app.use(bodyParser.json());
 	app.use(serverLogging);
 
+	app.use(express.static('./bower_components/'));
+	app.use(express.static('./css/'));
+
 	require(appRoot+"/app/routes/index.routes.js")(router);
 	require(appRoot+"/app/routes/main.routes.js")(router);
 	require(appRoot+"/app/routes/user.routes.js")(router);
@@ -31,5 +34,5 @@ module.exports = function(){
 	
 	app.use(router);
 
-	return app;	
+	return app;
 };
