@@ -40,6 +40,8 @@ function fillInAddress() {
   // Get each component of the address from the place details
   // and fill the corresponding field on the form.
   $("#autocomplete").val(place);
+  $("#lat").val(place.geometry.location.lat());
+  $("#lng").val(place.geometry.location.lng());
 }
 
 function geolocate() {

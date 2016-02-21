@@ -94,6 +94,7 @@ html,body{
 #left {
   width: 33.33333%;
 	height:100%;
+	overflow-y: scroll;
 }
 
 #map-canvas {
