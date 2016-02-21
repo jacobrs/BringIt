@@ -21,9 +21,7 @@ function makeDemand(){
         $("[id^="+item.errorType+"-r]").show();
       });
     }
-    console.log(data);
   }).fail(function (data){
-    console.log(data);
   });
 }
 
@@ -56,10 +54,12 @@ function geolocate() {
 function refreshList(list){
   if(list != null){
     items = list;
+    deleteMarkers();
     clearList();
     list.forEach(function (val){
       addSquare(val.val());
     });
+    setMapOnAll(map);
   }
 }
 
@@ -68,11 +68,19 @@ function clearList(){
 }
 
 function addSquare(item){
+  addMarker({lat: parseFloat(item.destination.lat), lng: parseFloat(item.destination.long)}, item.item);
   var curr = $("#result-list").html();
   curr += "<div class='resbox'>";
   curr += "<h4>" + item.fname + " needs " + item.item + "</h4>";
-  curr += "<h5 class='price'>Predicted price of item $" + item.price +
-    "<span class='label label-success tip'>$" + item.tip + " tip</span></h5>";
+  curr += "<h5 class='price'>Predicted price of item $" + item.price;
+
+  if(item.deliverer === undefined){
+    curr += "<span class='label label-success tip'>$" + item.tip + " tip</span>";
+  }else{
+    curr += "<span class='label label-danger tip'>Bringing it</span>";
+  }
+
+  curr += "</h5>";
 
   curr += "<strong>Available @ </strong>" + item.shop + "<br>";
   curr += "<strong>Deliver to </strong>" + item.destination.label + "<br>";
@@ -126,7 +134,8 @@ function logOut(){
     });
   }
 }
-
+var map;
+var markers = [];
 function initMap() {
 
   // Create the autocomplete object, restricting the search to geographical
@@ -141,8 +150,41 @@ function initMap() {
   autocomplete.addListener('place_changed', fillInAddress);
 
   var mapDiv = document.getElementById('map-canvas');
-  var map = new google.maps.Map(mapDiv, {
+  map = new google.maps.Map(mapDiv, {
     center: {lat: 45.5024270, lng: -73.5722630},
     zoom: 10
   });
+}
+
+// Adds a marker to the map and push to the array.
+function addMarker(location, label) {
+  var marker = new google.maps.Marker({
+    position: location,
+    map: map,
+    title: label
+  });
+  markers.push(marker);
+}
+
+// Sets the map on all markers in the array.
+function setMapOnAll(map) {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
+}
+
+// Removes the markers from the map, but keeps them in the array.
+function clearMarkers() {
+  setMapOnAll(null);
+}
+
+// Shows any markers currently in the array.
+function showMarkers() {
+  setMapOnAll(map);
+}
+
+// Deletes all markers in the array by removing references to them.
+function deleteMarkers() {
+  clearMarkers();
+  markers = [];
 }

@@ -138,3 +138,8 @@ html,body{
 .tip{
 	margin-left:1em;
 }
+
+.resbox{
+	margin:0 auto;
+	max-width: calc(100% - 2em);
+}
