@@ -1,6 +1,6 @@
 var User = function (data) {
   this.data = data;
-  this.push = function(){
+  this.place = function(){
     var postsRef = global.rootRef.child("users/"+this.data.username);
     postsRef.set({
       fname: this.data.fname,

@@ -97,7 +97,7 @@ exports.createUser = function(data, res){
 
 		        var tUser = new User(data);
 
-				tUser.push();
+				tUser.place();
 		        resp.success = "Successful";
 				res.json(resp);
 				res.end();

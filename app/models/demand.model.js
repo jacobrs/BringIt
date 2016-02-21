@@ -1,6 +1,6 @@
 var Demand = function (data) {
   this.data = data;
-  this.push = function(){
+  this.place = function(){
     var postsRef = global.rootRef.child("demands");
     postsRef.push().set({
       fname: this.data.asker,
