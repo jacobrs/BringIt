@@ -43,7 +43,7 @@ html,body{
   margin:0 auto;
   max-width: calc(100% - 2em);
   width: 25em;
-  margin-top:6em;
+  margin-top:4em;
   text-align:center;
   background-color: rgba(255, 255, 255, 0.9);
 }
@@ -67,6 +67,7 @@ html,body{
 
 #regbtn{
   width: calc(100% - 4em);
+  margin-bottom: 1em;
 }
 
 #search-bar{
@@ -105,4 +106,12 @@ html,body{
 
 #comments{
 	height:6em;
+}
+
+#register-result{
+  display: none;
+  font-size: 0.75em;
+  padding: 1em 0em;
+  width: 75%;
+  margin: 0px auto;
 }
