@@ -14,7 +14,7 @@ exports.getDemand = function(req, res, next){
 	}
 };
 
-exports.createDemand = function(req, res, next){
+exports.postDemand = function(req, res, next){
 	var body = req.body;
 	var resp = {};
 
@@ -29,7 +29,7 @@ exports.createDemand = function(req, res, next){
 	}
 };
 
-exports.updateDemand = function(req, res, next){
+exports.putDemand = function(req, res, next){
         var body = req.body;
         var resp = {};
 
