@@ -51,9 +51,9 @@ function makeDemand(){
         $("[id^="+item.errorType+"-r]").show();
       });
     }
-    //console.log(data);
+    console.log(data);
   }).fail(function (data){
-    //console.log(data);
+    console.log(data);
   });
 }
 

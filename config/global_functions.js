@@ -305,7 +305,7 @@ exports.getDemand = function(id, res){
 	}
 };
 
-exports.createDemand = function(data, res){
+exports.createDemand = function(data, req, res){
 	var resp = {};
 	resp.errors = [];
 
