@@ -220,8 +220,11 @@ exports.createDemand = function(data, res){
 	resp.errors = [];
 
 	// Validate input
-	if(!global.usernameRegex.test(data.deliverer)){
-		data.deliverer = null;
+	if(data.delieverer !== null && !global.usernameRegex.test(data.deliverer)){
+		resp.errors.push({
+            	errorType: "delieverer",
+            	text:      "Invalid characters in the delieverer"
+    	});
 	}
 
 		if(!global.individNameRegex.test(data.fname)){
@@ -259,8 +262,11 @@ exports.createDemand = function(data, res){
                 	});
         	}
 
-        	if(!global.shopRegex.test(data.shop)){
-                	data.shop = null;
+        	if(data.shop !== null && !global.shopRegex.test(data.shop)){
+                	resp.errors.push({
+                        	errorType: "shop",
+                        	text:      "Invalid characters in the shop name"
+                	});
         	}
 
 		if(!global.tipRegex.test(data.tip)){
