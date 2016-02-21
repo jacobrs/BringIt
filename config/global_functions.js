@@ -13,6 +13,7 @@ exports.getUser = function(username, res){
 	if(username != ""){
 		User.findByUsername(username, function(result){
 			if(result !== null){
+				result.password = null;
 				resp.result  = result;
 				resp.success = "Request was successful";
 				res.json(resp);
@@ -39,54 +40,54 @@ exports.createUser = function(data, res){
 	resp.errors = [];
 
 	if(!global.usernameRegex.test(data.username)){
-                resp.errors.push({
-                        errorType: "username",
-                        text:      "Invalid characters in the username"
-                });
-        }
+        resp.errors.push({
+            errorType: "username",
+            text:      "Invalid characters in the username"
+        });
+    }
 
 	User.findByUsername(data.username, function(result){
 		if(result !== null){
 			resp.errors.push({
-                        	errorType: "username",
-                        	text:      "Username is already taken"
-                	});
+            	errorType: "username",
+            	text:      "Username is already taken"
+        	});
 		}
 
 		if(!global.passwordRegex.test(data.password)){
-                	resp.errors.push({
-                        	errorType: "password",
-                        	text:      "Invalid characters in the password"
-                	});
-        	}
+        	resp.errors.push({
+            	errorType: "password",
+            	text:      "Invalid characters in the password"
+        	});
+    	}
 
-        	if(!global.individNameRegex.test(data.fname)){
-                	resp.errors.push({
-                        	errorType: "fname",
-                        	text:      "Invalid characters in the first name"
-                	});
-        	}
+    	if(!global.individNameRegex.test(data.fname)){
+        	resp.errors.push({
+            	errorType: "fname",
+            	text:      "Invalid characters in the first name"
+        	});
+    	}
 
-        	if(!global.individNameRegex.test(data.lname)){
-                	resp.errors.push({
-                        	errorType: "lname",
-                        	text:      "Invalid characters in the last name"
-                	});
-        	}
+    	if(!global.individNameRegex.test(data.lname)){
+        	resp.errors.push({
+            	errorType: "lname",
+            	text:      "Invalid characters in the last name"
+        	});
+    	}
 
-       		if(!global.emailRegex.test(data.email)){
-                	resp.errors.push({
-                        	errorType: "email",
-                        	text:      "Invalid email format"
-                	});
-        	}
+   		if(!global.emailRegex.test(data.email)){
+        	resp.errors.push({
+            	errorType: "email",
+            	text:      "Invalid email format"
+        	});
+    	}
 
 		User.findByEmail(data.email, function(result){
 			if(result !== null){
 				resp.errors.push({
-                                	errorType: "email",
-                                	text:      "Email is already taken"
-                        	});
+                	errorType: "email",
+                	text:      "Email is already taken"
+            	});
 			}
 
 			if(resp.errors.length === 0){

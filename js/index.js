@@ -38,13 +38,15 @@ function signUp(){
 
 						$('#register-result').html(errorOutput);
 
-						error = true;
+						$('#regbtn').html("Get Started");
 					}else{
 						// Login
 						$('#register-result').removeClass("alert-danger");
-						$('#register-result').addClass("alert-sucess");
+						$('#register-result').addClass("alert-success");
 
 						$('#register-result').html("Redirecting...");
+
+						window.location = "app";
 					}
 				},
 				error: function(e){
@@ -53,10 +55,6 @@ function signUp(){
 				complete: function(){
 					$('#register-result').slideDown(300, function(){
 						signingUp = false;
-
-						if(error){
-							$('#regbtn').html("Get Started");
-						}
 					});
 				}
 			});

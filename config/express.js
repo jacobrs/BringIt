@@ -1,5 +1,6 @@
 var express    = require('express');
 var exhbs      = require('express-handlebars');
+var session    = require('express-session');
 var bodyParser = require('body-parser');
 
 var serverLogging = function(req, res, next){
