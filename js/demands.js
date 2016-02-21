@@ -1,4 +1,10 @@
+var firebase = "https://delivernow.firebaseio.com/";
 var placeSearch, autocomplete;
+
+var rootRef = new Firebase(firebase);
+
+var items;
+
 function makeDemand(){
   var data = $(document.forms.demand).serialize();
   $.ajax({
@@ -47,8 +53,50 @@ function geolocate() {
   }
 }
 
+function refreshList(list){
+  if(list != null){
+    items = list;
+    clearList();
+    list.forEach(function (val){
+      addSquare(val.val());
+    });
+  }
+}
+
+function clearList(){
+  $("#result-list").html("");
+}
+
+function addSquare(item){
+  var curr = $("#result-list").html();
+  curr += "<div class='resbox'>";
+  curr += "<h4>" + item.fname + " needs " + item.item + "</h4>";
+  curr += "<h5 class='price'>Predicted price of item $" + item.price +
+    "<span class='label label-success tip'>$" + item.tip + " tip</span></h5>";
+
+  curr += "<strong>Available @ </strong>" + item.shop + "<br>";
+  curr += "<strong>Deliver to </strong>" + item.destination.label + "<br>";
+  if(comments !== undefined){
+    curr += "<p><strong>Comments: </strong>" + item.comments + "</p>";
+  }
+  curr += "</div><hr>";
+  $("#result-list").html(curr);
+}
+
+function loader(snapshot){
+  var ret = snapshot;
+  if(ret === null){
+    refreshList(null);
+  }else{
+    refreshList(ret);
+  }
+}
+
 $(document).ready(function(){
   geolocate();
+
+  rootRef.child("demands").on("value", loader);
+
 });
 
 var loggingOut = false;
