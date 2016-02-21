@@ -34,6 +34,10 @@ html,body{
   border-color:#3F51B5;
 }
 
+.pac-container{
+	z-index: 10000000000;
+}
+
 #main-nav{
   border:0px;
   border-bottom:1px solid #e7e7e7;
@@ -117,9 +121,20 @@ html,body{
   margin: 0px auto;
 }
 
+.req{
+	float:right;
+	margin-left: 1em;
+	margin-right: .4em;
+	display: none;
+}
+
 #login-result{
   display: none;
   height: 40px;
   padding: 0.5em 1em;
   margin: 0em;
+}
+
+.tip{
+	margin-left:1em;
 }

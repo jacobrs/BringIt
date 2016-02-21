@@ -54,7 +54,9 @@
 		        <button class="btn btn-default">Search</button>
 		      </div>
           <hr>
-          <div class="order-tile"></div>
+          <div class="result-list" id="result-list">
+
+          </div>
         </div>
         <div class="col-xs-4" id="map-canvas"></div>
       </div>
@@ -74,28 +76,31 @@
 
           <form name="demand" id="demandform">
             <input type="hidden" name="fname" value="{{fname}}"/>
-            <label>What do you need?</label>
+            <label>What do you need?</label><span class="label label-warning req" id="item-req">Invalid</span>
             <input type="text" class="form-control" name="item" aria-label="Item" placeholder="What do you need?"><br>
 
-            <label>How much should that cost?</label>
+            <label>How much should that cost?</label><span class="label label-warning req" id="price-req">Invalid</span>
             <div class="input-group">
               <span class="input-group-addon">$</span>
               <input type="text" class="form-control" name="price" aria-label="Estimated Price" placeholder="Estimated Price of Item">
             </div><br>
 
-            <label>How much would you tip?</label>
+            <label>How much would you tip?</label><span class="label label-warning req" id="tip-req">Invalid</span>
             <div class="input-group">
-              <span class="input-group-addon">%</span>
-              <input type="text" class="form-control" name="tip" aria-label="Estimated Price" placeholder="Service Fee">
+              <span class="input-group-addon">$</span>
+              <input type="text" class="form-control" name="tip" aria-label="Estimated Tip" placeholder="Service Fee">
             </div><br>
 
-            <label>Where can this item be found?</label>
+            <label>Where can this item be found?</label><span class="label label-warning req" id="shop-req">Invalid</span>
             <input type="text" class="form-control" name="shop" aria-label="shop" placeholder="Enter a location"><br>
 
-            <label>Where do you want it delivered?</label>
-            <input type="text" class="form-control" name="destination" aria-label="destination" placeholder="Enter a location"><br>
+            <label>Where do you want it delivered?</label><span class="label label-warning req" id="destination-req">Invalid</span>
+            <input type="text" class="form-control" name="destination[label]"
+              id="dest" placeholder="Enter a location"><br>
+            <input type="hidden" name="destination[lat]" id="lat" value="1">
+            <input type="hidden" name="destination[lng]" id="lng" value="2">
 
-            <label>Any aditional comments?</label>
+            <label>Any aditional comments?</label><span class="label label-warning req" id="comments-req">Invalid</span>
             <textarea type="text" class="form-control" name="comments" id="comments"
               aria-label="comments" placeholder="Type them here (optional)"></textarea><br>
 
@@ -112,8 +117,9 @@
     <!-- script references -->
     <script src="/jquery/dist/jquery.min.js"></script>
     <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/scripts.js"></script>
+    <script src="/firebase/firebase.js"></script>
     <script src="/demands.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMJ88JOkof1Rny-jetrCrpflNYBIvXgag&signed_in=true&libraries=places&callback=initMap"
+        async defer></script>
   </body>
 </html>
