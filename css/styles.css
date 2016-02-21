@@ -1,61 +1,53 @@
-/*
-A custom Bootstrap 3.1 theme from http://bootply.com\
-
-This CSS code should follow the 'bootstrap.css'
-in your HTML file.
-
-license: MIT
-author: bootply.com
-*/
-
-
 html,body{
-  	height:100%;
-}
-
-body{
-  	padding-top: 50px; /*padding for navbar*/
-}
-
-.navbar-custom .icon-bar {
-	background-color:#fff;
-}
-
-.navbar-custom {
-	background-color: #168ccc;
-    color:#fff;
-    padding-right: 10px;
-}
-
-.navbar-custom li>a:hover,.navbar-custom li>a:focus {
-	background-color:#49bfff;
-}
-
-.navbar-custom a{
-    color:#fefefe;
-}
-
-.navbar-custom .form-control:focus {
-	border-color: #49bfff;
-	outline: 0;
-	-webkit-box-shadow: inset 0 0 0;
-	box-shadow: inset 0 0 0;
-}
-
-#main, #main>.row {
 	height:100%;
+  color:#555;
 }
 
-#main>.row {
-  overflow-y:scroll;
+.navbar{
+  background-color: rgba(255, 255, 255, 0.9);
 }
 
-#left {
-  width: 33.33333%;
-	height:100%;
+#landingpagebody{
+  background-size:cover;
+  background-image: url("/images/coffee.jpg");
 }
 
-#map-canvas {
-	width:66.66666%;
-  height:100%;
+#brand{
+  color:#555;
+}
+
+.form-control{
+  border-radius: 0px;
+}
+
+.btn{
+  border-radius: 0px;
+  background-color:#3F51B5;
+  color:#fff;
+  border-color:#3F51B5;
+}
+
+.btn:hover{
+  background-color:#5C6BC0;
+  color:#fff;
+  border-color:#3F51B5;
+}
+
+#main-nav{
+  border:0px;
+  border-bottom:1px solid #e7e7e7;
+  border-radius: 0px;
+}
+
+#registration{
+  margin:0 auto;
+  max-width: calc(100% - 2em);
+  width: 25em;
+  margin-top:6em;
+  text-align:center;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+#regbtn{
+  width: calc(100% - 4em);
 }

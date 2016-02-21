@@ -24,14 +24,17 @@ module.exports = function(){
 	app.use(bodyParser.json());
 	app.use(serverLogging);
 
-	app.use(express.static('./bower_components/'));
-	app.use(express.static('./css/'));
+	app.use(express.static(appRoot+'/bower_components/'));
+	app.use(express.static(appRoot+'/css/'));
+	app.use(express.static(appRoot+'/js/'));
+	app.use(express.static(appRoot+'/images/'));
+	app.use('/images', express.static('images'));
 
 	require(appRoot+"/app/routes/index.routes.js")(router);
 	require(appRoot+"/app/routes/main.routes.js")(router);
 	require(appRoot+"/app/routes/user.routes.js")(router);
 	require(appRoot+"/app/routes/demand.routes.js")(router);
-	
+
 	app.use(router);
 
 	return app;

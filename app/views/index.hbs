@@ -1,91 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-	<meta charset="utf-8">
-	<title>Register</title>
-	<meta name="generator" content="Bootply" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-	<link href="/styles.css" rel="stylesheet">
-</head>
-<body>
+	<head>
+		<meta charset="utf-8">
+	  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	  <meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Welcome</title>
+		<link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/styles.css" rel="stylesheet">
+	</head>
+	<body id="landingpagebody">
+		<nav class="navbar navbar-default" id="main-nav">
+		  <div class="container-fluid">
+		    <div class="navbar-header">
+		      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#creds" aria-expanded="false">
+		        <span class="sr-only">Toggle navigation</span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		      </button>
+		      <a class="navbar-brand" href="#" id="brand">Our Amazing Website</a>
+		    </div>
 
-	<div class="navbar navbar-custom navbar-fixed-top">
-		<div class="navbar-header">
-			<a class="navbar-brand" href="#">FKALL</a>
-			<a class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</a>
+		    <div class="collapse navbar-collapse" id="creds">
+		      <form class="navbar-form navbar-right">
+		        <div class="form-group">
+		          <input type="text" class="form-control" placeholder="Username">
+			        <input type="password" class="form-control" placeholder="Password">
+		        </div>
+		        <button type="submit" class="btn btn-default">Sign In</button>
+		      </form>
+		    </div>
+		  </div>
+		</nav>
+
+		<div class="panel panel-default" id="registration">
+		  <div class="panel-body">
+		    <h3>Get Started Today!</h3><hr>
+				<form name="registration" method="PUT">
+					<div class="input-group">
+					  <span class="input-group-addon" id="uname">@</span>
+					  <input type="text" class="form-control" name="username" placeholder="Username" aria-describedby="uname">
+					</div><br>
+					<input type="text" class="form-control" name="fname" placeholder="First Name"><br>
+					<input type="text" class="form-control" name="lname" placeholder="Last Name"><br>
+					<input type="password" class="form-control" name="password" placeholder="Password"><br>
+					<button type="submit" class="btn btn-default" id="regbtn">Get Started</button>
+				</form><br>
+		  </div>
 		</div>
 
-	</div>
-
-	<div class="jumbotron">
-		<h2>Sign up and start FKALL!</h2>
-		<form>
-
-			<div class="row">
-				<div class="col-md-6">
-					<div class="form-group">
-						<label for="name">First Name:  </label>
-						<input type="text" name="name" id="name" placeholder="John" required />
-					</div>
-				</div>
-				<div class="col-md-6"><div class="form-group"><label for="name">Last Name:  </label>
-					<input type="text" name="name" id="name" placeholder="Smith" required /></div>
-				</div>
-
-				<div class="col-md-6">
-					<div class="form-group">
-						<label for="exampleInputEmail1">Email address: </label>
-						<input type="email" class="form-group" id="exampleInputEmail1" placeholder="john.smith@abc.com">
-					</div>
-				</div>
-
-				<div class="col-md-6">
-					<div class="form-group">
-						<label for="exampleInputPassword1">Password: </label>
-						<input type="password" class="form-group" id="exampleInputPassword1" placeholder="Password">
-					</div>
-				</div>
-				<div class="col-md-6">
-					<div class="checkbox">
-						<label>
-							<input type="checkbox" required> I agree with the terms and conditions.
-						</label>
-					</div>
-				</div>
-
-
-
-
-
-
-
-
-
-
-		</form>
-
-		<form>
-
-			<button type="submit" class="btn btn-default">Submit</button>
-		</form>
-
-
-						<div>
-					<span>Already a member?</span>
-					<button type="submit" class="btn btn-default">Login</button>
-
-
-			</div>
-
-
-	</div>
-
-
-</body>
+		<script src="/jquery/dist/jquery.min.js"></script>
+		<script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+	</body>
 </html>
