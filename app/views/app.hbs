@@ -93,8 +93,8 @@
             <input type="text" class="form-control" name="shop" aria-label="shop" placeholder="Enter a location"><br>
 
             <label>Where do you want it delivered?</label><span class="label label-warning req" id="destination-req">Invalid</span>
-            <input type="text" class="form-control" name="destination_name" aria-label="destination"
-              onfocus="geolocate()" id="autocomplete" placeholder="Enter a location"><br>
+            <input type="text" class="form-control" name="destination[label]"
+              id="dest" placeholder="Enter a location"><br>
             <input type="hidden" name="destination[lat]" id="lat" value="1">
             <input type="hidden" name="destination[lng]" id="lng" value="2">
 
@@ -115,8 +115,8 @@
     <!-- script references -->
     <script src="/jquery/dist/jquery.min.js"></script>
     <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/scripts.js"></script>
     <script src="/demands.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMJ88JOkof1Rny-jetrCrpflNYBIvXgag&signed_in=true&libraries=places&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMJ88JOkof1Rny-jetrCrpflNYBIvXgag&signed_in=true&libraries=places&callback=initMap"
+        async defer></script>
   </body>
 </html>

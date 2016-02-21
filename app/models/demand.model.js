@@ -7,6 +7,7 @@ var Demand = function (data) {
       comments: this.data.comments,
       deliverer: this.data.deliverer,
       destination: {
+        label: this.data.destination.label,
         long: this.data.destination.long,
         lat: this.data.destination.lat
       },
