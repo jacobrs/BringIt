@@ -36,8 +36,8 @@ User.findByEmail = function (email, callback) {
           var u = value.val();
           u.username = value.key();
           callback(u);
+          return;
         }
-        return;
       });
       callback(null);
     }
