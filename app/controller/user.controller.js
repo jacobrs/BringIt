@@ -51,7 +51,7 @@ exports.putUser = function(req, res, next){
 	var resp = {};
 
 	if(!funcs.isUndef(body.username) && !funcs.isUndef(body.fname) && !funcs.isUndef(body.email) &&
-		!funcs.isUndef(body.password) && !funcs.isUndef(body.lname))){
+		!funcs.isUndef(body.password) && !funcs.isUndef(body.lname)){
 		funcs.updateUser(body, req, res);
 	}else{
 		resp.error = "Invalid use of api";
