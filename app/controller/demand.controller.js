@@ -4,7 +4,7 @@ exports.getDemand = function(req, res, next){
 	var resp = {};
 
 	if(!funcs.isUndef(req.params.id)){
-		funcs.getDemand(req.params.id, req, res, next);
+		funcs.getDemand(req.params.id, res);
 	}else{
 		resp.error = "Invalid use of api";
 		resp.code  = 400;
@@ -19,7 +19,7 @@ exports.postDemand = function(req, res, next){
 
 	if(!funcs.isUndef(body.fname) && !funcs.isUndef(body.item) && !funcs.isUndef(body.price) && 
 	   !funcs.isUndef(body.destination) && !funcs.isUndef(body.deliverer) && !funcs.isUndef(body.tip)){
-		funcs.createDemand(body, req, res, next);
+		funcs.createDemand(body, res);
 	}else{
 		resp.error = "Invalid use of api";
 		resp.code  = 400;
@@ -34,7 +34,7 @@ exports.putDemand = function(req, res, next){
 
         if(!funcs.isUndef(body.id) && !funcs.isUndef(body.fname) && !funcs.isUndef(body.item) && !funcs.isUndef(body.price) &&
            !funcs.isUndef(body.destination) && !funcs.isUndef(body.deliverer) && !funcs.isUndef(body.tip)){
-                funcs.updateDemand(body, req, res, next);
+                funcs.updateDemand(body, res);
         }else{
                 resp.error = "Invalid use of api";
                 resp.code  = 400;
@@ -48,7 +48,7 @@ exports.deleteDemand = function(req, res, next){
 	var resp = {};
 
 	if(!funcs.isUndef(req.params.id)){
-		funcs.deleteDemand(req.params.id, req, res, next);
+		funcs.deleteDemand(req.params.id, res);
 	}else{
 		resp.error = "Invalid use of api";
 		resp.code  = 400;

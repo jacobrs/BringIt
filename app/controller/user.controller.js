@@ -4,7 +4,7 @@ exports.getUser = function(req, res, next){
 	var resp = {};
 
 	if(!funcs.isUndef(req.params.username)){
-		funcs.getUser(req.params.username, req, res, next);				
+		funcs.getUser(req.params.username, res);				
 	}else{
 		resp.error = "Invalid use of api";
 		resp.code  = 400;
@@ -19,7 +19,7 @@ exports.postUser = function(req, res, next){
 
 	if(!funcs.isUndef(body.username) && !funcs.isUndef(body.fname) && !funcs.isUndef(body.email) && 
 	   !funcs.isUndef(body.password) && !funcs.isUndef(body.lname)){
-		funcs.createUser(body, req, res, next);
+		funcs.createUser(body, res);
 	}else{
 		resp.error = "Invalid use of api";
 		resp.code  = 400;
@@ -34,7 +34,7 @@ exports.putUser = function(req, res, next){
 
 	if(!funcs.isUndef(body.username) && (!funcs.isUndef(body.fname) || !funcs.isUndef(body.email) || 
 		!funcs.isUndef(body.password) || !funcs.isUndef(body.lname))){
-		funcs.updateUser(body, req, res, next);
+		funcs.updateUser(body, res);
 	}else{
 		resp.error = "Invalid use of api";
 		resp.code  = 400;
@@ -47,7 +47,7 @@ exports.deleteUser = function(req, res, next){
 	var resp = {};
 
 	if(!funcs.isUndef(req.params.username)){
-		funcs.deleteUser(req.params.username, req, res, next);
+		funcs.deleteUser(req.params.username, res);
 	}else{
 		resp.error = "Invalid use of api";
 		resp.code  = 400;
