@@ -142,6 +142,8 @@ function bringIt(){
       }).fail(function (data){
         console.log(data);
       });
+    }else{
+      $("#deliverbtn").show();
     }
   }
 }
