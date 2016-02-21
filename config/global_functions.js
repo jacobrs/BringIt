@@ -15,24 +15,30 @@ exports.login = function(username, password, req, res){
 			User.findByUsername(username, function(result){
 				if(result !== null){
 					if(bcrypt.compareSync(password, result.password)){
-						req.session.username = data.username;
-						req.session.fname    = data.fname;
-						req.session.lname    = data.lname;
-						req.session.email    = data.email;
+						req.session.username = result.username;
+						req.session.fname    = result.fname;
+						req.session.lname    = result.lname;
+						req.session.email    = result.email;
 
 						req.session.regenerate(function(err){});
 
 						resp.success = "Logged In";
 						res.json(resp);
 						res.end();
+					}else{
+						resp.errorType = "both";
+						resp.error = "Username or password was incorrect";
+						resp.code  = 400;
+						res.json(resp);
+						res.end();
 					}
+				}else{
+					resp.errorType = "both";
+					resp.error = "Username or password was incorrect";
+					resp.code  = 400;
+					res.json(resp);
+					res.end();
 				}
-
-				resp.errorType = "both";
-				resp.error = "Username or password was incorrect";
-				resp.code  = 400;
-				res.json(resp);
-				res.end();
 			});
 		}else{
 			resp.errorType = "password";

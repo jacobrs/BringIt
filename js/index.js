@@ -70,7 +70,7 @@ function logIn(){
 	if(!loggingIn){
 		loggingIn = true;
 
-		$('#login-result').slideUp(500, function(){
+		$('#login-result').fadeOut(500, function(){
 			$('#loginbtn').html("<i class='fa fa-spin fa-spinner' style='font-size: 0.75em;'></i>");
 
 			var error = false;
@@ -122,9 +122,9 @@ function logIn(){
 					//console.log(e);
 				},
 				complete: function(){
-					$('#login-result').slideDown(500, function(){
+					$('#login-result').fadeIn(500, function(){
 						loggingIn = false;
-					});
+					}).css('display', 'inline');
 				}
 			});
 		});
