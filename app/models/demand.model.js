@@ -19,7 +19,7 @@ var Demand = function (data) {
 }
 
 Demand.findById = function (id, callback) {
-  global.rootRef.child("demands/"+id).on("value", function(snapshot) {
+  global.rootRef.child("demands/"+id).once("value", function(snapshot) {
     var ret = snapshot.val();
     if(ret === null){
       callback(null);
