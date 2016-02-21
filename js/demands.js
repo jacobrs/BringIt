@@ -15,6 +15,7 @@ function makeDemand(){
         $("[id^="+item.errorType+"-r]").show();
       });
     }
+    console.log(data);
   }).fail(function (data){
     console.log(data);
   });
@@ -27,7 +28,6 @@ function fillInAddress() {
   // Get each component of the address from the place details
   // and fill the corresponding field on the form.
   $("#autocomplete").val(place);
-  console.log("here");
 }
 
 function geolocate() {
@@ -43,7 +43,6 @@ function geolocate() {
       });
       $("#lat").val(position.coords.latitude);
       $("#lng").val(position.coords.longitude);
-      console.log(position.coords);
     });
   }
 }
