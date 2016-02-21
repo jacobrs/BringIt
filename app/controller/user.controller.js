@@ -1,11 +1,10 @@
 var funcs = require(appRoot+"/config/global_functions.js"); 
 
 exports.getUser = function(req, res, next){
-	var body = req.body;
 	var resp = {};
 
-	if(!funcs.isUndef(body.username)){
-		funcs.getUser(body.username, req, res, next);				
+	if(!funcs.isUndef(req.params.username)){
+		funcs.getUser(req.params.username, req, res, next);				
 	}else{
 		resp.error = "Invalid use of api";
 		resp.code  = 400;
@@ -45,11 +44,10 @@ exports.putUser = function(req, res, next){
 };
 
 exports.deleteUser = function(req, res, next){
-	var body = req.body;
 	var resp = {};
 
-	if(!funcs.isUndef(body.username)){
-		funcs.deleteUser(body.username, req, res, next);
+	if(!funcs.isUndef(req.params.username)){
+		funcs.deleteUser(req.params.username, req, res, next);
 	}else{
 		resp.error = "Invalid use of api";
 		resp.code  = 400;

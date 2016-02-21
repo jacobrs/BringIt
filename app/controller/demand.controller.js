@@ -1,11 +1,10 @@
 var funcs = require(appRoot+"/config/global_functions.js");
 
 exports.getDemand = function(req, res, next){
-	var body = req.body;
 	var resp = {};
 
-	if(!funcs.isUndef(body.id)){
-		funcs.getDemand(body.id, req, res, next);
+	if(!funcs.isUndef(req.params.id)){
+		funcs.getDemand(req.params.id, req, res, next);
 	}else{
 		resp.error = "Invalid use of api";
 		resp.code  = 400;
@@ -33,7 +32,7 @@ exports.putDemand = function(req, res, next){
         var body = req.body;
         var resp = {};
 
-        if(!funcs.isUndef(body.fname) && !funcs.isUndef(body.item) && !funcs.isUndef(body.price) &&
+        if(!funcs.isUndef(body.id) && !funcs.isUndef(body.fname) && !funcs.isUndef(body.item) && !funcs.isUndef(body.price) &&
            !funcs.isUndef(body.destination) && !funcs.isUndef(body.deliverer) && !funcs.isUndef(body.tip)){
                 funcs.updateDemand(body, req, res, next);
         }else{
@@ -46,11 +45,10 @@ exports.putDemand = function(req, res, next){
 };
 
 exports.deleteDemand = function(req, res, next){
-	var body = req.body;
 	var resp = {};
 
-	if(!funcs.isUndef(body.id)){
-		funcs.deleteDemand(body.id, req, res, next);
+	if(!funcs.isUndef(req.params.id)){
+		funcs.deleteDemand(req.params.id, req, res, next);
 	}else{
 		resp.error = "Invalid use of api";
 		resp.code  = 400;
