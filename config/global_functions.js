@@ -498,7 +498,7 @@ exports.updateDemand = function(data, req, res){
 exports.deleteDemand = function(id, req, res){
 	// Validate input
 	Demand.findById(id, function(result){
-		if(result !== null and req.session.username == result.owner){
+		if(result !== null && req.session.username == result.owner){
 			var tDemand = new Demand(result);
 			tDemand.deleteWithID(id);
 			resp.success = "Successful";
