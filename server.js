@@ -4,7 +4,6 @@ global.appRoot = path.resolve(__dirname);
 var config   = require(appRoot+"/config/server_config");
 var express  = require(appRoot+'/config/express');
 var Firebase = require("firebase");
-var User     = require(appRoot+"/app/models/user");
 
 var app    = express();
 global.rootRef = new Firebase(config.firebase_url);

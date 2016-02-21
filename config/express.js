@@ -26,6 +26,7 @@ module.exports = function(){
 
 	require(appRoot+"/app/routes/index.routes.js")(router);
 	require(appRoot+"/app/routes/main.routes.js")(router);
+	require(appRoot+"/app/routes/user.routes.js")(router);
 
 	app.use(router);
 
